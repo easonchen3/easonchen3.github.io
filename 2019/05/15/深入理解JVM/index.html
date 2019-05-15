@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.走进Java和JVM1.Java历史 1996年 SUN JDK1.0 Classic VM -纯解释运行使用外挂进行JIT  1997年 JDK1.1发布 -AWT，内部类，JDBC，RMI，反射   1998年 JDK1.2 Solaris Exact VM ，开始加入J2SE,J2ME,J2EE加入SwingCollections -JIT解释器混合 -Accurate Memory M">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解JVM">
+<meta property="og:url" content="http://yoursite.com/2019/05/15/深入理解JVM/index.html">
+<meta property="og:site_name" content="风">
+<meta property="og:description" content="1.走进Java和JVM1.Java历史 1996年 SUN JDK1.0 Classic VM -纯解释运行使用外挂进行JIT  1997年 JDK1.1发布 -AWT，内部类，JDBC，RMI，反射   1998年 JDK1.2 Solaris Exact VM ，开始加入J2SE,J2ME,J2EE加入SwingCollections -JIT解释器混合 -Accurate Memory M">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://pic.superbed.cn/item/5caabf9a3a213b0417dc5c77">
+<meta property="og:image" content="https://pic.superbed.cn/item/5caabf9a3a213b0417dc5c7c">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1QpuoP7voK1RjSZFD760Y3pXaX.png">
+<meta property="og:image" content="https://pic.superbed.cn/item/5caabf9a3a213b0417dc5c87">
+<meta property="og:image" content="https://pic.superbed.cn/item/5caabfa43a213b0417dc5dc4">
+<meta property="og:image" content="https://pic.superbed.cn/item/5caabfa43a213b0417dc5dcd">
+<meta property="og:image" content="https://pic.superbed.cn/item/5caabfa43a213b0417dc5dd2">
+<meta property="og:image" content="https://pic.superbed.cn/item/5caabfaa3a213b0417dc5eba">
+<meta property="og:updated_time" content="2019-05-15T13:26:23.178Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入理解JVM">
+<meta name="twitter:description" content="1.走进Java和JVM1.Java历史 1996年 SUN JDK1.0 Classic VM -纯解释运行使用外挂进行JIT  1997年 JDK1.1发布 -AWT，内部类，JDBC，RMI，反射   1998年 JDK1.2 Solaris Exact VM ，开始加入J2SE,J2ME,J2EE加入SwingCollections -JIT解释器混合 -Accurate Memory M">
+<meta name="twitter:image" content="https://pic.superbed.cn/item/5caabf9a3a213b0417dc5c77">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/15/深入理解JVM/">
+
+
+
+
+
+  <title>深入理解JVM | 风</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+	
+   
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">风</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">海浪在发愁</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/15/深入理解JVM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Xu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="风">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">深入理解JVM</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-15T21:23:33+08:00">
+                2019-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-走进Java和JVM"><a href="#1-走进Java和JVM" class="headerlink" title="1.走进Java和JVM"></a>1.走进Java和JVM</h1><h2 id="1-Java历史"><a href="#1-Java历史" class="headerlink" title="1.Java历史"></a>1.Java历史</h2><ul>
+<li><p>1996年 SUN JDK1.0 Classic VM</p>
+<p>-纯解释运行使用外挂进行JIT</p>
+</li>
+<li><p>1997年 JDK1.1发布</p>
+<p>-AWT，内部类，JDBC，RMI，反射 </p>
+</li>
+<li><p>1998年 JDK1.2 Solaris Exact VM ，开始加入J2SE,J2ME,J2EE加入SwingCollections</p>
+<p>-JIT解释器混合</p>
+<p>-Accurate Memory Management 精确内存管理 ，数据类型敏感</p>
+<p>-提升GC性能</p>
+</li>
+<li><p>2000年JDK1.3 Hotspot 作为默认的虚拟机发布,加入JavaSound</p>
+</li>
+<li><p>2002年  JDK1.4 ClassicVM退出历史舞台 Assert 正则 NIO IPV6 日志API 加密类库</p>
+</li>
+<li><p>2004年 发布 JDK1.5即 JDK5，J2SE5，Java 5 </p>
+<p>–泛型</p>
+<p>–注解</p>
+<p>–装箱</p>
+<p>–枚举</p>
+<p>–可变参数</p>
+<p>–foreach循环</p>
+</li>
+<li><p>JDK1.6 JDK6</p>
+<p>–脚本语言</p>
+<p>–JDBC4.0</p>
+<p>–Java编译器API</p>
+</li>
+<li><p>2011年 JDK7发布</p>
+<p>–延误项目推出JDK8</p>
+<p>–G1</p>
+<p>–动态语言增强</p>
+<p>–64位系统中的压缩指针</p>
+<p>–NIO2.0</p>
+</li>
+<li><p>2014年发布 JDK8</p>
+<p>–Lambda表达式</p>
+<p>–语法增强 java类型注解</p>
+</li>
+<li><p>2016JDK9</p>
+<p>–模块化</p>
+</li>
+</ul>
+<h2 id="2-JVM历史"><a href="#2-JVM历史" class="headerlink" title="2.JVM历史"></a>2.JVM历史</h2><ul>
+<li><p>使用最广泛的JVM为Hotspot</p>
+</li>
+<li><p>Hotspot为 Longview Technologies 开发 被SUN收购</p>
+</li>
+<li><p>2006年 Java开源 建立OpenJdk</p>
+</li>
+<li><p>–Hotspot成为SUN JDK和OpenJDk中所带的虚拟机</p>
+</li>
+<li><p>2088年Oracle收购BEA</p>
+</li>
+<li><p>得到JRockit VM</p>
+</li>
+<li><p>2010年Oracle收购SUN</p>
+</li>
+<li><p>得到Hotspot</p>
+</li>
+<li><p>Oracle宣布JDK8是整合JRockit 和Hotspot ，优势互补</p>
+</li>
+<li><p>–在Hotspot的基础上移植JRockit优秀特性</p>
+</li>
+<li><p>KVM  </p>
+<p>–SUN发布</p>
+<p>–IOS Android前  广泛用于手机系统</p>
+</li>
+<li><p>CDC/CLDC Hotspot</p>
+<p>–手机电子书PDA设备统一的Java编程接口</p>
+<p>–J2ME的重要组成部分</p>
+</li>
+<li><p>JRockit</p>
+<p>–BEA</p>
+</li>
+<li><p>IBM J9VM</p>
+</li>
+<li><p>Apache Harmony</p>
+</li>
+</ul>
+<h1 id="2-自动内存管理机制"><a href="#2-自动内存管理机制" class="headerlink" title="2.自动内存管理机制"></a>2.自动内存管理机制</h1><h2 id="1-程序计数器"><a href="#1-程序计数器" class="headerlink" title="1.程序计数器"></a>1.程序计数器</h2><h2 id="2-Java虚拟机栈"><a href="#2-Java虚拟机栈" class="headerlink" title="2.Java虚拟机栈"></a>2.Java虚拟机栈</h2><p>—包含局部变量表，操作数栈。动态链接，方法出口信息。</p>
+<p><strong>局部变量表</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StackDemo</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">runStatic</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">float</span> f,Object o,<span class="keyword">byte</span> b)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://pic.superbed.cn/item/5caabf9a3a213b0417dc5c77" alt></p>
+<p>​               该方法的局部变量变（long为8字节，一个栏位占32位，所以long占两个栏位）</p>
+<p><strong>操作数栈</strong></p>
+<p>–java没有寄存器，所以java使用栈进行参数的传递</p>
+<p><strong>栈上分配</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BcmBasicString</span>&#123;</span>...&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>&#123;</span><br><span class="line">    BcmBasicString* str = <span class="keyword">new</span> BcmBasicString;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">delete</span> str;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>c++的new分配是在堆上分配的，每一次使用结束都要把对象进行删除。如果分配之后没有进行删除，就会造成内存泄漏，一旦发生很难挽回。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>&#123;</span><br><span class="line">    BcmBasicString str;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样分配就是在栈上为他分配内存，避免了内存泄漏</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> class <span class="title">onStackTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">alloc</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">byte</span>[] b = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">2</span>];</span><br><span class="line">        b[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">long</span> b = System.currentTimeMillis();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&gt;=&lt;<span class="number">100000000</span>;i++)&#123;</span><br><span class="line">            alloc();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> e =System.currentTimeMillis();</span><br><span class="line">        System.out.println(e-b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用参数为：（在栈上进行分配）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-server -Xmx10m -Xms10m</span><br><span class="line">-XX:+DoEscapeAnalysis -XX:+PrintGC</span><br></pre></td></tr></table></figure>
+<p>输出结果为：5(ms)</p>
+<p>使用参数为：（在堆上进行分配）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-server -Xmx10m -Xms10m</span><br><span class="line">-XX:-DoEscapeAnalysis -XX:+PrintGC</span><br></pre></td></tr></table></figure>
+<p>输出结果：GC处理日志</p>
+<p><strong>栈上分配的好处：</strong></p>
+<ul>
+<li><p>小对象，在没有逃逸的情况可以直接分配到栈上</p>
+</li>
+<li><p>直接分配栈上可以自动回收减少GC的压力</p>
+</li>
+<li><p>大对象和逃逸对象无法在栈上分配</p>
+</li>
+</ul>
+<h2 id="3-JVM基本结构"><a href="#3-JVM基本结构" class="headerlink" title="3.JVM基本结构"></a>3.JVM基本结构</h2><p>栈，堆和方法区之间的交互</p>
+<p><img src="https://pic.superbed.cn/item/5caabf9a3a213b0417dc5c7c" alt></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppMain</span></span>&#123;</span><br><span class="line">    <span class="comment">//运行时，jvm把appmain的信息放在了方法区</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="comment">//main方法本身放入方法区</span></span><br><span class="line">        Sample test1 = <span class="keyword">new</span> Sample(<span class="string">"测试1"</span>)；</span><br><span class="line">        <span class="comment">//test1是引用，所以放到栈区，Sample是自定义对象所以放到堆里</span></span><br><span class="line">        Sample test2 = <span class="keyword">new</span> Sample(<span class="string">"测试2"</span>);</span><br><span class="line">        test1.printName();</span><br><span class="line">        test2.printName();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sample</span></span>&#123;</span><br><span class="line">    <span class="comment">//运行时，jvm把appmain的信息放在了方法区</span></span><br><span class="line">    <span class="keyword">private</span> name;</span><br><span class="line">    <span class="comment">//new Sample 实例之后。name放到栈区，name对象放到堆里</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Sample</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//print方法本身放到方法区</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printName</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>内存模型</strong></p>
+<ul>
+<li>每一个线程都有一个工作内存和主存独立</li>
+<li>工作内存存放主存中变量的值的拷贝<br><img src="https://ae01.alicdn.com/kf/HTB1QpuoP7voK1RjSZFD760Y3pXaX.png" alt></li>
+</ul>
+<p><strong>线程可见性</strong>：一个线程修改了变量，其他的线程立即就可以知道。</p>
+<p>​        <strong>可见性的实现方法</strong>：<strong>Volatile,synchronized,final</strong>（常量一旦初始化之后其他线程就可以见）</p>
+<p><strong>有序性</strong>：</p>
+<p>​    线程内部，操作是有序的</p>
+<p>​    线程外，操作是无序的（指令重排，主内存同步延时）</p>
+<p><strong>指令重排的原则（Happen-Before先行发生规则）：</strong></p>
+<ul>
+<li>程序顺序原则：一个线程内保证语义 的串行性</li>
+<li>volatile规则：volatile变量的写，先发生于读</li>
+<li>锁规则：解锁unlock必然发生在随后的加锁前</li>
+<li>传递性：A先于B，B先于C，那么A必然先C</li>
+<li>线程的start方法先于他的每一个动作</li>
+<li>线程的所有操作先于线程的终结（Thread.join()）</li>
+<li>线程的中断（interrupt（））先于被中断的代码</li>
+<li>对象的构造函数执行结束先于finalize（）方法</li>
+</ul>
+<p>解释执行：解释的方法运行字节码，读一句执行一句</p>
+<p>编译执行（JIT）：先编译为字节码，执行字节码，运行时编译。 （性能更高）</p>
+<h1 id="3-JVM配置参数"><a href="#3-JVM配置参数" class="headerlink" title="3.JVM配置参数"></a>3.JVM配置参数</h1><p><strong>OOM：已分配的虚拟内存大于物理内存和Swap分区大小，导致需要内存无法分配</strong></p>
+<h2 id="1-Trace跟踪参数"><a href="#1-Trace跟踪参数" class="headerlink" title="1.Trace跟踪参数"></a>1.Trace跟踪参数</h2><ul>
+<li>verbose:gc</li>
+<li>-XX:+printGC（可以打印GC的简要信息）</li>
+<li>-XX:+printGCDetails(打印GC详细信息)</li>
+<li>-XX:+printGCTimeStamps(打印GC发生的时间戳)</li>
+<li>-XX:+TraceClassLoading(监控类的加载)</li>
+</ul>
+<h2 id="2-堆的分配参数"><a href="#2-堆的分配参数" class="headerlink" title="2.堆的分配参数"></a>2.堆的分配参数</h2><ul>
+<li><p>-Xmx -Xms(指定最大堆和最小堆)</p>
+</li>
+<li><p>-Xmn(设置新生代的大小)</p>
+</li>
+<li><p>-XX:NewRatio(设置新生代的相对值，百分比 <strong>例如：4表示新生代：老年代=1:4</strong>)</p>
+</li>
+<li><p>-XX:SurvivorRatio(设置两个Survivor区和eden的比 例如：8表示 两个Survivor：eden=</p>
+<p>2:8  即一个Survivor占年轻代的1/10)</p>
+</li>
+<li><p>-XX:+HeapDumpOnOutOfMemoryError(OOM时导出堆到文件)</p>
+</li>
+<li><p>-XX:+HeapDumpPath(导出OOM的路径)</p>
+</li>
+<li><p>-XX:OnOutOfMemoryError(在OOM的时候执行一个脚本)</p>
+<p>官方推荐新生代占堆的3/8，幸存代占新生代的1/10（-XX:SurvivorRatio 8）</p>
+</li>
+<li><p>-XX:PermSize -XX:MaxPermSize(永久区分配参数：初始值和最大空间)</p>
+</li>
+</ul>
+<h2 id="3-栈的分配参数"><a href="#3-栈的分配参数" class="headerlink" title="3.栈的分配参数"></a>3.栈的分配参数</h2><ul>
+<li><p>-Xss(栈大小的分配)</p>
+<p>–通常只有几百k</p>
+<p>–决定了函数调用的深度</p>
+<p>–每个线程都有独立的栈空间</p>
+<p>–局部变量，参数，分配都在栈上</p>
+</li>
+</ul>
+<h1 id="4-GC算法和种类"><a href="#4-GC算法和种类" class="headerlink" title="4.GC算法和种类"></a>4.GC算法和种类</h1><h2 id="1-GC的概念"><a href="#1-GC的概念" class="headerlink" title="1.GC的概念"></a>1.GC的概念</h2><p>Garbage Collection 的垃圾回收</p>
+<p>1960年List语言使用了GC</p>
+<p>Java中， GC的对象是堆空间和永久区 </p>
+<h3 id="2-GC的算法"><a href="#2-GC的算法" class="headerlink" title="2.GC的算法"></a>2.GC的算法</h3><h4 id="2-1引用计数法-Java中没有使用"><a href="#2-1引用计数法-Java中没有使用" class="headerlink" title="2.1引用计数法(Java中没有使用)"></a>2.1引用计数法(Java中没有使用)</h4><p>老牌垃圾回收算法，引用 计算来进行垃圾回收</p>
+<p>使用者：COM，ActionScript3，Python</p>
+<p>（使用+1，释放-1，<strong>引用计数器</strong>的值为0，标记没人使用，可以释放资源）</p>
+<p>​    <strong>引用计数法的问题</strong></p>
+<ul>
+<li>引用和去除引用伴随加减法，会影响性能</li>
+<li>很难处理垃圾对象的循环引用，无法进行回收 </li>
+</ul>
+<h3 id="2-2标记-清除"><a href="#2-2标记-清除" class="headerlink" title="2.2标记-清除"></a>2.2标记-清除</h3><p>标记-清除是现在垃圾回收算法的思想基础。分为标记和清除两个阶段。</p>
+<ul>
+<li><strong>标记：</strong>通过根节点，标记所有从根节点开始的可达对象，未被标记的对象就是垃圾对象</li>
+<li><strong>清除：</strong>清除所有未被标记的对象</li>
+</ul>
+<h3 id="2-3标记-压缩"><a href="#2-3标记-压缩" class="headerlink" title="2.3标记-压缩"></a>2.3标记-压缩</h3><p>标记压缩算法适用于存活对象比较多的情况，比如老年代。他在标记清除的基础上做了优化，标记压缩也是从根节点开始，对所有可以到达的对象进行标记，但是他不简单的清除未标记对象，而是把所有存活对象压缩到内存的一段<strong>，清除边界外所有空间。</strong></p>
+<h3 id="2-4复制算法"><a href="#2-4复制算法" class="headerlink" title="2.4复制算法"></a>2.4复制算法</h3><p>1、与标记清除对比，复制算法是一个高效的回收方法</p>
+<p>2、不适合存活对象比较多的情况</p>
+<p>3、将原来的内存分为两块，每次只使用其中的一块，在垃圾回收时候，将正在使用的内存中的存活对象复制到未使用的内存中，之后，清除正在使用的内存块中的所有对象，交换两个内存的角色，完成垃圾回收。.</p>
+<p>复制算法的问题：浪费空间，整合标记清理思想。</p>
+<p>分代的思想：</p>
+<ul>
+<li><p>根据对象的存活周期进行分类，短命对象分为新生代，长命对象分为来年代</p>
+</li>
+<li><p>不同代的特点进行选择合适的算法，</p>
+<p>–少量存活对象时候复制算法，</p>
+<p>–大量对象存活时候时候清理标记或者标记压缩算法。</p>
+</li>
+</ul>
+<h2 id="3-可触及性"><a href="#3-可触及性" class="headerlink" title="3.可触及性"></a>3.可触及性</h2><p>所有算法都需要能够识别一个垃圾对象，这样需要给出一个可触及性的定义 </p>
+<ul>
+<li>可触及：从根节点可以触及到这个对象</li>
+<li>可复活：一旦所有的引用被释放，就是可复活状态，因为在finalize()中可能被复活 </li>
+<li>不可触及：在finalize()可能会进入不可触及状态，不可触及状态不可能复活，但是可以回收</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CanReliveObj</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> CanReliveObj obj;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span><span class="keyword">throws</span> Throwable</span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.finalize();</span><br><span class="line">        System.out.println(<span class="string">"CanRelivedObj finalize called"</span>);</span><br><span class="line">        obj=<span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"I am CanReliverObj"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    <span class="keyword">throws</span> InterruptedException</span>&#123;</span><br><span class="line">    obj = <span class="keyword">new</span> CanReliverObj();</span><br><span class="line">    obj = <span class="keyword">null</span>;<span class="comment">//可复活</span></span><br><span class="line">    System.gc();</span><br><span class="line">    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">    <span class="keyword">if</span>(obj == <span class="keyword">null</span>)&#123;</span><br><span class="line">        System.out.println(<span class="string">"obj是null"</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"obj可用"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">"第二次gc"</span>);</span><br><span class="line">    obj = <span class="keyword">null</span>;<span class="comment">//不可复活</span></span><br><span class="line">    System.gc();</span><br><span class="line">    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">    <span class="keyword">if</span>(obj == <span class="keyword">null</span>)&#123;</span><br><span class="line">        System.out.prinyln(<span class="string">"obj是null"</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"obj可用"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CanReliveObj finalize called</span><br><span class="line">obj可用</span><br><span class="line">第二次gc</span><br><span class="line">obj是null</span><br></pre></td></tr></table></figure>
+<p>经验：避免使用finalize方法，操作不慎会导致一些问题，优先级比较低，调用gc时候才会调用finalize，调用gc的时机是不确定的，可以使用try-catch-finally来代替它</p>
+<p><strong>根的定义:</strong>栈中引用的对象，方法区中静态成员变量或者常量引用的对象(全局变量)，JNI方法栈中引用对象。</p>
+<h2 id="4-Stop-The-World"><a href="#4-Stop-The-World" class="headerlink" title="4.Stop-The-World"></a>4.Stop-The-World</h2><ul>
+<li><p>Java中一种全局暂停的现象</p>
+</li>
+<li><p>全局停顿，所有Java代码停止，native代码可以运行，但不可以和JVM交互</p>
+</li>
+<li><p>多半由于GC引起：</p>
+<p>–Dump线程</p>
+<p>–死锁检查</p>
+<p>–堆Dump</p>
+</li>
+</ul>
+<p>为什么要全局停顿：当停顿的时候，GC才可以完全的回收完。但是他会使服务器长时间停止没有响应，如果遇到了HA系统，会引起主备切换，严重危害生产环境。</p>
+<p>实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">PrintThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> starttime = 											System.currentTimeMills();	</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">               <span class="keyword">long</span> t = System.currentTimeMills()-starttime;</span><br><span class="line">                System.out.println(<span class="string">"time :"</span>+t);</span><br><span class="line">                Thread.sleep(<span class="number">100</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	HashMap&lt;Long, <span class="keyword">byte</span>[]&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">				<span class="keyword">if</span>(map.size()*<span class="number">512</span>/<span class="number">1024</span>/<span class="number">1024</span> &gt;= <span class="number">450</span>)&#123;</span><br><span class="line">					System.out.println(<span class="string">"=====准备清除=====："</span>+map.size());</span><br><span class="line">					map.clear();</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;<span class="number">1024</span>;i++)&#123;</span><br><span class="line">					map.put(System.nanoTime(), <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">512</span>]);</span><br><span class="line">				&#125;</span><br><span class="line">				Thread.sleep(<span class="number">1</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">			</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="5-GC参数"><a href="#5-GC参数" class="headerlink" title="5.GC参数"></a>5.GC参数</h1><h2 id="5-1堆"><a href="#5-1堆" class="headerlink" title="5.1堆"></a>5.1堆</h2><p><strong>堆的结构</strong></p>
+<p><img src="https://pic.superbed.cn/item/5caabf9a3a213b0417dc5c87" alt></p>
+<h3 id="5-2串行收集器"><a href="#5-2串行收集器" class="headerlink" title="5.2串行收集器"></a>5.2串行收集器</h3><ul>
+<li><p>最古老最稳定</p>
+</li>
+<li><p>效率高</p>
+</li>
+<li><p>可能产生长时间的停顿</p>
+</li>
+<li><p>-XX:+UseSerialGC</p>
+<p>–新生代，老年代使用串行回收</p>
+<p>–新生代复制算法</p>
+<p>–老年代标记-压缩算法</p>
+</li>
+</ul>
+<h2 id="5-3并行收集器"><a href="#5-3并行收集器" class="headerlink" title="5.3并行收集器"></a>5.3并行收集器</h2><p><strong>ParNew</strong></p>
+<ul>
+<li><p>-XX:UseParNewGC</p>
+<p>–新生代使用ParNew收集器+老年代串行</p>
+</li>
+<li><p>Serial收集器新生代的并行版本</p>
+</li>
+<li><p>复制算法</p>
+</li>
+<li><p>多线程，需要多核的支持</p>
+</li>
+<li><p>-XX:ParallelGCThreads限制线程的数量</p>
+</li>
+</ul>
+<p><strong>Parllel</strong></p>
+<ul>
+<li><p>类似ParNew</p>
+</li>
+<li><p>新生代复制算法，老年代标记-压缩算法</p>
+</li>
+<li><p>更加关注吞吐量</p>
+</li>
+<li><p>-XX:+UseParallelGC</p>
+<p>–新生代使用Parallel收集器+老年代串行</p>
+</li>
+<li><p>-XX:+UseParallelOldGC</p>
+<p>–使用Parallel收集器+并行</p>
+</li>
+</ul>
+<p>并行回收器参数：</p>
+<ul>
+<li><p>-XX:MaxGCPauseMills(最大停顿时间，GC保证回收时间不超过)</p>
+</li>
+<li><p>-XX:GCTimeRatio(0-100)</p>
+<p>垃圾回收时间占总时间的百分比，默认99，最大允许1%的时间做GC</p>
+<p>这两个参数是矛盾的，因为停顿时间和吞吐量不可能同时调优。</p>
+</li>
+</ul>
+<h2 id="5-4CMS收集器（Concurrent-Mark-Sweep-并发标记清除）"><a href="#5-4CMS收集器（Concurrent-Mark-Sweep-并发标记清除）" class="headerlink" title="5.4CMS收集器（Concurrent Mark Sweep 并发标记清除）"></a>5.4CMS收集器（Concurrent Mark Sweep 并发标记清除）</h2><ul>
+<li>标记-清除算法</li>
+<li>可以和用户线程一起并发的执行，停顿减少，吞吐量将降低</li>
+<li>是一个单纯的老年代收集器，不会在新生代使用</li>
+<li>打开标志：-XX:+UseConcMarkSweepGC</li>
+</ul>
+<p>CMS的运行过程：</p>
+<ul>
+<li>初始标记：根可以直接关联的对象，速度快</li>
+<li>并发标记（和用户线程一起）：是主要标记过程，标记全部对象</li>
+<li>重新标记：由于并发标记时，用户线程依然在运行，因此在正式清理前，再做修正</li>
+<li>并发清理（和用户线程一起）：基于标记的结果，直接清理对象</li>
+</ul>
+<p><img src="https://pic.superbed.cn/item/5caabfa43a213b0417dc5dc4" alt></p>
+<p><strong>特点：</strong></p>
+<ul>
+<li><p>尽可能的降低停顿</p>
+</li>
+<li><p>会影响系统整体的吞吐量和性能</p>
+</li>
+<li><p>清理的不彻底，用户一直运行会一直产生新的垃圾</p>
+</li>
+<li><p>因为和用户线程一起运行，不能在空间快满的时候再清理</p>
+<p>-XX:CMSInitiatingOccupancyFraction设置触发GC的阈值</p>
+<p>如果不幸内存的预留空间不够，就会引起concurrent mode failure</p>
+</li>
+</ul>
+<p>参数：</p>
+<ul>
+<li>-XX:+UseCMSCompactAtFullCollection  设置Full GC后，进行一次整理</li>
+<li>-XX:+CMSFullGCsBeforeCompaction设置进行几次FullGC后进行一次整理</li>
+<li>-XX:ParallelCMSThreads设置CMS的线程数量</li>
+</ul>
+<h2 id="5-5参数整理"><a href="#5-5参数整理" class="headerlink" title="5.5参数整理"></a>5.5参数整理</h2><p><img src="https://pic.superbed.cn/item/5caabfa43a213b0417dc5dcd" alt></p>
+<p><img src="https://pic.superbed.cn/item/5caabfa43a213b0417dc5dd2" alt></p>
+<h2 id="5-6Tomcat实例演示"><a href="#5-6Tomcat实例演示" class="headerlink" title="5.6Tomcat实例演示"></a>5.6Tomcat实例演示</h2><h1 id="6-类装载器（ClassLoader）"><a href="#6-类装载器（ClassLoader）" class="headerlink" title="6.类装载器（ClassLoader）"></a>6.类装载器（ClassLoader）</h1><h2 id="6-1class装载验证流程"><a href="#6-1class装载验证流程" class="headerlink" title="6.1class装载验证流程"></a>6.1class装载验证流程</h2><ul>
+<li><p>加载</p>
+<p>装载类的第一个阶段，会取得类的二进制流，转为方法区的数据结构，并在Java堆中生成对应的java.lang.Class对象</p>
+</li>
+<li><p>链接</p>
+<ul>
+<li><p>验证</p>
+<p>保证Class流的正确性：</p>
+<p>1.文件格式验证（是否以0xCAFEBAE开头，版本号）</p>
+<p>2.元数据的验证：是否有否类，继承了final类?非抽象类实现了所有的抽象方法</p>
+<p>3.字节码的验证：运行检查，栈数据类型和操作码数据参数吻合，跳转指令到合理位置</p>
+<p>4.符号引用验证：常量池中描述类是否存在，访问的方法或字段是否存在且有足够的权限。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>准备</p>
+<p>分配内存，并为类设置初始化值，与初始化时候的值不同，对于static final类型。在准备的时候就被赋上正确的值</p>
+</li>
+<li><p>解析</p>
+<p>符号引用替换为直接引用</p>
+<p>直接引用的结果是一个指针或者是一个内存的偏移地址</p>
+</li>
+</ul>
+<ul>
+<li><p>初始化 </p>
+<p>执行类构造器<clinit></clinit></p>
+<p>​    -static 变量，赋值语句</p>
+<p>​    -static{}语句</p>
+<p>子类的<clinit>调用前保证父类的<clinit>被调用</clinit></clinit></p>
+<p><clinit>是线程安全的</clinit></p>
+</li>
+</ul>
+<h3 id="6-2什么是类装载器ClassLoader"><a href="#6-2什么是类装载器ClassLoader" class="headerlink" title="6.2什么是类装载器ClassLoader"></a>6.2什么是类装载器ClassLoader</h3><p>ClassLoader是一个抽象类，ClassLoader的实例将读入Java字节码装载到JVM中。满足不同字节码的获取方式，负责类装载过程中的<strong>加载阶段</strong>。</p>
+<p>ClassLoader的重要方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//载入并返回一个Class</span></span><br><span class="line"><span class="keyword">public</span> Class&lt;?&gt; loadClass(String name)<span class="keyword">throws</span> ClassNotFoundException</span><br><span class="line"><span class="comment">//定义一个类，不公开调用</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">final</span> Class&lt;?&gt; defineClass(<span class="keyword">byte</span>[] b,<span class="keyword">int</span> off,<span class="keyword">int</span> len)</span><br><span class="line"><span class="comment">//loadClass回调该方法，自定义ClassLoader的推荐做法</span></span><br><span class="line"><span class="keyword">protected</span> Class&lt;?&gt; findClass(String name)<span class="keyword">throws</span> ClassNotFoundException</span><br><span class="line"><span class="comment">//寻找已经加载的类</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">final</span> Class&lt;?&gt; findLoadedClass(String name)</span><br></pre></td></tr></table></figure>
+<h3 id="6-3JDK中ClassLoader默认设计模式"><a href="#6-3JDK中ClassLoader默认设计模式" class="headerlink" title="6.3JDK中ClassLoader默认设计模式"></a>6.3JDK中ClassLoader默认设计模式</h3><h4 id="1-分类"><a href="#1-分类" class="headerlink" title="1.分类"></a>1.分类</h4><ul>
+<li>BootStrap ClassLoader(启动ClassLoader)</li>
+<li>Extension ClassLoader(扩展ClassLoader)</li>
+<li>App ClassLoader(应用ClassLoader/系统ClassLoader)</li>
+<li>Custom ClassLoader(自定义ClassLoader)</li>
+<li>每一个ClassLoader都有一个Parent作为父亲</li>
+</ul>
+<h4 id="2-协同工作"><a href="#2-协同工作" class="headerlink" title="2.协同工作"></a>2.协同工作</h4><p><img src="https://pic.superbed.cn/item/5caabfaa3a213b0417dc5eba" alt></p>
+<p>loadClass的代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> Class&lt;?&gt; loadClass(String name,<span class="keyword">boolean</span> resolve)</span><br><span class="line">	<span class="keyword">throws</span> ClassNOtFoundException&#123;</span><br><span class="line">    <span class="keyword">synchronized</span>(getClassLoadingLock(name))&#123;</span><br><span class="line">        Class c = findLoadedClass(name);</span><br><span class="line">        <span class="keyword">if</span>(c == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">long</span> t0 = System.nanoTime();</span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(parent != <span class="keyword">null</span>)&#123;</span><br><span class="line">                    c = parent.loadClass(name,<span class="keyword">false</span>);</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    c = findBootstrapClassOrNull(name);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">catch</span>(ClassNotFoundException e)&#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>问题：BootstrapClassLoader无法加载APPClassLoader，顶层ClassLoader无法加载底层ClassLoader的类</p>
+<p>解决：Thread.setContextClassLoader()设置一个上下文加载器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">private</span> Class <span class="title">getProvideClass</span><span class="params">(String className,ClassLoader cl,</span></span></span><br><span class="line"><span class="function"><span class="params"> <span class="keyword">boolean</span> doFallback,<span class="keyword">boolean</span> useBSClsLoader)</span><span class="keyword">throws</span> ClassNotFoundException</span>&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(cl == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(useBSClsLoader)&#123;</span><br><span class="line">    			 <span class="keyword">return</span> Class.forName(className,<span class="keyword">true</span>,</span><br><span class="line">                          Factory.class.getClassLoader());</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                cl = ss.getContextClassLoader();</span><br><span class="line">                <span class="keyword">if</span>(cl == <span class="keyword">null</span>)&#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> ClassNotFoundException;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">return</span> cl.loadClass(className);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> cl.loadClass(className);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">catch</span>(ClassNotFoundExceptoin e)&#123;</span><br><span class="line">        <span class="keyword">if</span>(doFallback)&#123;</span><br><span class="line">            <span class="keyword">return</span> Class.forName(className,<span class="keyword">true</span>,</span><br><span class="line">                   FactoryFinder.class.getClassLoader);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>破坏双亲模式：先从底层的ClassLoader加载</p>
+<p>OrderClassLoader的部分实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">synchronized</span> Class&lt;?&gt;  loadClass(String name,<span class="keyword">boolean</span> resolve)</span><br><span class="line">	<span class="keyword">throws</span> ClassNotFoundException&#123;</span><br><span class="line">    Class re = findClass(name);</span><br><span class="line">    <span class="keyword">if</span>(re == <span class="keyword">null</span>)&#123;</span><br><span class="line">        System.out.println(<span class="string">"无法加载类"</span>+name+<span class="string">"需要父类请求"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.loadClass(name,resolve);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> re;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-4打破常规模式"><a href="#6-4打破常规模式" class="headerlink" title="6.4打破常规模式"></a>6.4打破常规模式</h2><h2 id="6-5热替换"><a href="#6-5热替换" class="headerlink" title="6.5热替换"></a>6.5热替换</h2><p>当一个class被替换，系统无需重启，立即生效</p>
+<h1 id="7-性能监控工具"><a href="#7-性能监控工具" class="headerlink" title="7.性能监控工具"></a>7.性能监控工具</h1><h2 id="7-1系统性能监控"><a href="#7-1系统性能监控" class="headerlink" title="7.1系统性能监控"></a>7.1系统性能监控</h2><p>Liunx：</p>
+<ul>
+<li>uptime：系统时间，运行时间，连接数，1,5,15分钟内的系统平均负载</li>
+<li>top  同uptime CPU 内存 以及每一个进程占有CPU的情况</li>
+<li>vmstat 可以统计系统的CPU，内存，swap，io等情况</li>
+<li>pidstat 细致观察进程，需要安装(sudo apt-get install sysstat)，监控CPU，监控IO，监控内存</li>
+</ul>
+<p>Windows：</p>
+<ul>
+<li>任务管理器</li>
+<li>Perfmon Windows自带多功能性能监控工具</li>
+<li>pslist 命令行工具，自动数据收集，显示Java程序的运行情况</li>
+</ul>
+<h2 id="7-2Java自带的工具"><a href="#7-2Java自带的工具" class="headerlink" title="7.2Java自带的工具"></a>7.2Java自带的工具</h2><ul>
+<li><p>jps</p>
+<p>–列出Java进程，类似ps命令</p>
+<p>–参数 -q可以指定jps只输出进程ID，不输出类的短名称</p>
+<p>–参数 -m可以用于输出传递给Java进程的参数</p>
+<p>–参数 -l 可以用于输出主函数的完整路径</p>
+<p>–参数 -v可以显示传递给JVM的参数</p>
+</li>
+<li><p>jinfo</p>
+<p>可以用来查看正在运行的Java应用程序和扩展参数，甚至支持在运行时，修改部分参数</p>
+<p>-flag<name> 打印指定JVM的参数值</name></p>
+<p>-flag[+|-]<name>设置指定JVM参数的布尔值</name></p>
+<p>-flag<name>=<value>设置指定JVM的参数</value></name></p>
+</li>
+<li><p>jmap</p>
+<p>生成Java应用程序的堆快照和对象的统计信息</p>
+<p>jmap -histo 2972&gt;c:\s.txt</p>
+<p>jmap -dump:format=b,file=c:\heap.hprof 2972</p>
+</li>
+<li><p>jstack</p>
+<p>打印线程dump</p>
+<p>-l 打印锁信息</p>
+<p>-m 打印java和native的帧信息</p>
+<p>-F 强制dump，当jstack没有响应时候使用</p>
+</li>
+<li><p>JConsole</p>
+</li>
+<li>Visual VM是一个功能强大的多合一故障诊断和性能监控可视化工具</li>
+</ul>
+<h2 id="7-3实战分析"><a href="#7-3实战分析" class="headerlink" title="7.3实战分析"></a>7.3实战分析</h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/15/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mr.Xu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/easonchen3" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-走进Java和JVM"><span class="nav-number">1.</span> <span class="nav-text">1.走进Java和JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Java历史"><span class="nav-number">1.1.</span> <span class="nav-text">1.Java历史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-JVM历史"><span class="nav-number">1.2.</span> <span class="nav-text">2.JVM历史</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-自动内存管理机制"><span class="nav-number">2.</span> <span class="nav-text">2.自动内存管理机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-程序计数器"><span class="nav-number">2.1.</span> <span class="nav-text">1.程序计数器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Java虚拟机栈"><span class="nav-number">2.2.</span> <span class="nav-text">2.Java虚拟机栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-JVM基本结构"><span class="nav-number">2.3.</span> <span class="nav-text">3.JVM基本结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-JVM配置参数"><span class="nav-number">3.</span> <span class="nav-text">3.JVM配置参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Trace跟踪参数"><span class="nav-number">3.1.</span> <span class="nav-text">1.Trace跟踪参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-堆的分配参数"><span class="nav-number">3.2.</span> <span class="nav-text">2.堆的分配参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-栈的分配参数"><span class="nav-number">3.3.</span> <span class="nav-text">3.栈的分配参数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-GC算法和种类"><span class="nav-number">4.</span> <span class="nav-text">4.GC算法和种类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-GC的概念"><span class="nav-number">4.1.</span> <span class="nav-text">1.GC的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-GC的算法"><span class="nav-number">4.1.1.</span> <span class="nav-text">2.GC的算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1引用计数法-Java中没有使用"><span class="nav-number">4.1.1.1.</span> <span class="nav-text">2.1引用计数法(Java中没有使用)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2标记-清除"><span class="nav-number">4.1.2.</span> <span class="nav-text">2.2标记-清除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3标记-压缩"><span class="nav-number">4.1.3.</span> <span class="nav-text">2.3标记-压缩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4复制算法"><span class="nav-number">4.1.4.</span> <span class="nav-text">2.4复制算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-可触及性"><span class="nav-number">4.2.</span> <span class="nav-text">3.可触及性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Stop-The-World"><span class="nav-number">4.3.</span> <span class="nav-text">4.Stop-The-World</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-GC参数"><span class="nav-number">5.</span> <span class="nav-text">5.GC参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1堆"><span class="nav-number">5.1.</span> <span class="nav-text">5.1堆</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2串行收集器"><span class="nav-number">5.1.1.</span> <span class="nav-text">5.2串行收集器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3并行收集器"><span class="nav-number">5.2.</span> <span class="nav-text">5.3并行收集器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4CMS收集器（Concurrent-Mark-Sweep-并发标记清除）"><span class="nav-number">5.3.</span> <span class="nav-text">5.4CMS收集器（Concurrent Mark Sweep 并发标记清除）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-5参数整理"><span class="nav-number">5.4.</span> <span class="nav-text">5.5参数整理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-6Tomcat实例演示"><span class="nav-number">5.5.</span> <span class="nav-text">5.6Tomcat实例演示</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-类装载器（ClassLoader）"><span class="nav-number">6.</span> <span class="nav-text">6.类装载器（ClassLoader）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1class装载验证流程"><span class="nav-number">6.1.</span> <span class="nav-text">6.1class装载验证流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2什么是类装载器ClassLoader"><span class="nav-number">6.1.1.</span> <span class="nav-text">6.2什么是类装载器ClassLoader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3JDK中ClassLoader默认设计模式"><span class="nav-number">6.1.2.</span> <span class="nav-text">6.3JDK中ClassLoader默认设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-分类"><span class="nav-number">6.1.2.1.</span> <span class="nav-text">1.分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-协同工作"><span class="nav-number">6.1.2.2.</span> <span class="nav-text">2.协同工作</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-4打破常规模式"><span class="nav-number">6.2.</span> <span class="nav-text">6.4打破常规模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-5热替换"><span class="nav-number">6.3.</span> <span class="nav-text">6.5热替换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-性能监控工具"><span class="nav-number">7.</span> <span class="nav-text">7.性能监控工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1系统性能监控"><span class="nav-number">7.1.</span> <span class="nav-text">7.1系统性能监控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-2Java自带的工具"><span class="nav-number">7.2.</span> <span class="nav-text">7.2Java自带的工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-3实战分析"><span class="nav-number">7.3.</span> <span class="nav-text">7.3实战分析</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Xu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
