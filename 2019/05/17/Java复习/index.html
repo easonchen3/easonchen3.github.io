@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="-    Java复习1.Java基础1.1 Java的跨平台原理Java在通过不同的系统，不同版本，不同位数的Java虚拟机（JVM）来屏蔽掉不同的系统指令差异而对外提供统一的接口（Java API），对于我们普通的Java开发者来说，只需要按照接口开发就可以了。如果我系统需要部署到不同的环境下时，只需要在系统上安装版本对应的虚拟机即可。 1.2搭建一个Java开发环境Java开发环境需要什么：">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java复习">
+<meta property="og:url" content="http://easonchen3.github.io/2019/05/17/Java复习/index.html">
+<meta property="og:site_name" content="风">
+<meta property="og:description" content="-    Java复习1.Java基础1.1 Java的跨平台原理Java在通过不同的系统，不同版本，不同位数的Java虚拟机（JVM）来屏蔽掉不同的系统指令差异而对外提供统一的接口（Java API），对于我们普通的Java开发者来说，只需要按照接口开发就可以了。如果我系统需要部署到不同的环境下时，只需要在系统上安装版本对应的虚拟机即可。 1.2搭建一个Java开发环境Java开发环境需要什么：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1G3mrPYrpK1RjSZTE763WAVXa0.png">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1kXWnP9zqK1RjSZFH7623CpXaP.png">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1ZtyOP4jaK1RjSZKz760VwXXav.png">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB19uShP9zqK1RjSZPx7634tVXaM.png">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1ycSrP3HqK1RjSZFE763GMXXaz.png">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1W_unP7voK1RjSZPf760PKFXaq.png">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1s9apP3HqK1RjSZFP763wapXao.png">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1jmapP3HqK1RjSZFP763wapXaI.png">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1LH9mPYvpK1RjSZPi762mwXXah.png">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1nMdYiTZmx1VjSZFG761x2XXae.png">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1.1mOP4jaK1RjSZKz760VwXXaw.png">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1X3yeP9rqK1RjSZK9760yypXaF.png">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1BZ9KP5LaK1RjSZFx761mPFXau.png">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB115SqP6TpK1RjSZKP7613UpXaj.png">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB19JiBP4YaK1RjSZFn76180pXaS.png">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1rxKrPYrpK1RjSZTE763WAVXaG.png">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB13delP8LoK1RjSZFu760n0XXao.png">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB195SqP6TpK1RjSZKP7613UpXal.png">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1RHCyP4jaK1RjSZFA762dLFXaC.png">
+<meta property="og:image" content="http://img.blog.csdn.net/20170227111849763?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvTWFyeTE5OTIwNDEw/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="og:updated_time" content="2019-05-17T07:16:57.529Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java复习">
+<meta name="twitter:description" content="-    Java复习1.Java基础1.1 Java的跨平台原理Java在通过不同的系统，不同版本，不同位数的Java虚拟机（JVM）来屏蔽掉不同的系统指令差异而对外提供统一的接口（Java API），对于我们普通的Java开发者来说，只需要按照接口开发就可以了。如果我系统需要部署到不同的环境下时，只需要在系统上安装版本对应的虚拟机即可。 1.2搭建一个Java开发环境Java开发环境需要什么：">
+<meta name="twitter:image" content="https://ae01.alicdn.com/kf/HTB1G3mrPYrpK1RjSZTE763WAVXa0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://easonchen3.github.io/2019/05/17/Java复习/">
+
+
+
+
+
+  <title>Java复习 | 风</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+	
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">风</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">海浪在发愁</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://easonchen3.github.io/2019/05/17/Java复习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Xu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="风">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java复习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-17T15:15:59+08:00">
+                2019-05-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Java复习"><a href="#Java复习" class="headerlink" title="-    Java复习"></a>-    Java复习</h1><h2 id="1-Java基础"><a href="#1-Java基础" class="headerlink" title="1.Java基础"></a>1.Java基础</h2><h3 id="1-1-Java的跨平台原理"><a href="#1-1-Java的跨平台原理" class="headerlink" title="1.1 Java的跨平台原理"></a>1.1 Java的跨平台原理</h3><p>Java在通过不同的系统，不同版本，不同位数的Java虚拟机（JVM）来屏蔽掉不同的系统指令差异而对外提供统一的接口（Java API），对于我们普通的Java开发者来说，只需要按照接口开发就可以了。如果我系统需要部署到不同的环境下时，只需要在系统上安装版本对应的虚拟机即可。</p>
+<h3 id="1-2搭建一个Java开发环境"><a href="#1-2搭建一个Java开发环境" class="headerlink" title="1.2搭建一个Java开发环境"></a>1.2搭建一个Java开发环境</h3><p>Java开发环境需要什么：</p>
+<p>1.适用于我们开发环境的JDK</p>
+<p>2.对应开发环境的eclipse</p>
+<p>3.还需要web服务器（Tomcat）</p>
+<h3 id="1-3-Java-int-占几个字节"><a href="#1-3-Java-int-占几个字节" class="headerlink" title="1.3 Java int 占几个字节"></a>1.3 Java int 占几个字节</h3><p><strong>Java中有8中基本数据类型</strong></p>
+<p><img src="https://ae01.alicdn.com/kf/HTB1G3mrPYrpK1RjSZTE763WAVXa0.png" alt> d</p>
+<h3 id="1-4面向对象的特征有哪些方面"><a href="#1-4面向对象的特征有哪些方面" class="headerlink" title="1.4面向对象的特征有哪些方面"></a>1.4面向对象的特征有哪些方面</h3><p><strong>四大基本特征：封装，抽象，继承，多态</strong></p>
+<p>在叙述抽象问题的时候，就可以举例来进行说明：</p>
+<ul>
+<li><p>封装：即将对象封装成一个<strong>高度自治和相对封闭的一个个体</strong>，对象状态（属性）由这个对象自己的行为去读取和改变，类似张三这个人，要有自己提供一个修改或者获取属性的方法来进行操作。</p>
+<p>private name setName getName</p>
+</li>
+<li><p>抽象：找出一些事物的<strong>相似和公共之处</strong>，然后把这些事物归为一个类。</p>
+</li>
+<li><p>继承：在定义一个类的时候，<strong>把已经存在的类所定义的内容作为自己类的内容，也可以加入若干内容，这就是继承</strong></p>
+</li>
+<li><p>多态：程序中所定义的引用变量的具体类型和通过该引用发出的方法调用在编sa的时候并不确定，而在程序运行的时候才会确定，即一个引用变量到底会指向那一个类的实体，该引用变量发出的方法到底是哪个类中实现的方法，都得等到程序运行的时候才可以去确定。</p>
+</li>
+</ul>
+<p>Object obj = new XXX();</p>
+<p>Java中多态的实现机制：靠的是父类或接口定义的引用变量可以指向子类或者具体实现类的实例对象，而程序调用方法是在<strong>运行期</strong>才去动态绑定的，就是引用变量所指向的具体实例对象方法，也就是那个正在运行的对象的方法，而不是引用变量的类型中定义的方法。</p>
+<h3 id="1-5-有了基本的数据类型，为什么还要包装类型"><a href="#1-5-有了基本的数据类型，为什么还要包装类型" class="headerlink" title="1.5 有了基本的数据类型，为什么还要包装类型"></a>1.5 有了基本的数据类型，为什么还要包装类型</h3><p><strong>Java 是一个面向对象的语言，基本的数据类型不具备面向对象的特性。</strong></p>
+<p>包装类型中可以提供很多计算有效的值：null,max,min,缓存值。</p>
+<p>包装类型：每一个基本类型都会一一对应一个包装类型</p>
+<h3 id="1-6装箱和拆箱"><a href="#1-6装箱和拆箱" class="headerlink" title="1.6装箱和拆箱"></a>1.6装箱和拆箱</h3><p>装箱：把基本数据类型转换为对应的包装类型</p>
+<p>拆箱：就是把包装类型转换为基本的数据类型</p>
+<p>JDK1.5 之后出现自动装箱和自动拆箱：</p>
+<p>自动装箱：编译器在编译时会自动调用valueOf方法来装箱</p>
+<p>自动拆箱：编译器在编译时候自动调用intValue方法来拆箱</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    Integer a1 = Integer.valueOf(<span class="number">1</span>);<span class="comment">//装箱（手动装箱）</span></span><br><span class="line">    Integer a2 = <span class="number">1</span>;					<span class="comment">//自动装箱</span></span><br><span class="line">    <span class="keyword">int</span> a3 = a1.intValue();			<span class="comment">//拆箱（手动拆箱）</span></span><br><span class="line">    <span class="keyword">int</span> a4 = a1;					<span class="comment">//自动拆箱</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-7-“-”和equals方法究竟有什么区别"><a href="#1-7-“-”和equals方法究竟有什么区别" class="headerlink" title="1.7 “==”和equals方法究竟有什么区别"></a>1.7 “==”和equals方法究竟有什么区别</h3><p>==用来判断两个变量之间的值是否相等，变量可以分为基本数据类型变量和引用类型，如果是基本数据类型的变量，直接比较值，而引用类型需要比较相应引用内存的首地址</p>
+<p><img src="https://ae01.alicdn.com/kf/HTB1kXWnP9zqK1RjSZFH7623CpXaP.png" alt></p>
+<p>equals用来比较两个对象长得是否一样，判断两个对象的某些特征是否一样，实际上就是调用对象的equals方法进行比较</p>
+<h3 id="1-8-String，StringBuilder和StringBuffer-的区别"><a href="#1-8-String，StringBuilder和StringBuffer-的区别" class="headerlink" title="1.8 String，StringBuilder和StringBuffer 的区别"></a>1.8 String，StringBuilder和StringBuffer 的区别</h3><p>在Java中提供了三个类：String StringBuilder ,StringBuffer来表示和操作字符串，字符串就是多个字符的集合。</p>
+<p>String 是<strong>内容不可以变的字符串</strong>：String str = new String(“bb”);</p>
+<p><img src="https://ae01.alicdn.com/kf/HTB1ZtyOP4jaK1RjSZKz760VwXXav.png" alt></p>
+<p>String底层使用了一个不可变的字符数组（final char[]）</p>
+<p>而StringBuilder StringBuffer 是内容可以改变的字符串,底层使用的是可变的字符数组（没有使用final修饰），<strong>其中提供append追加方法来修改值</strong></p>
+<p><img src="https://ae01.alicdn.com/kf/HTB19uShP9zqK1RjSZPx7634tVXaM.png" alt></p>
+<p>最经典就是拼接字符串：</p>
+<p>1.String进行拼接String c = “a”+”b”;</p>
+<p>2.StringBuilder/StringBuffer:StringBuilder sb = new StringBuilder();</p>
+<p>​                            sb.append(“a”).append(“b”);</p>
+<p>拼接字符串不能使用String进行拼接，要使用StringBuilder/StringBuffer，后者的效率较高。</p>
+<p><strong>StringBuilder是线程不安全的，效率较高。</strong></p>
+<p><strong>StringBuffer是线程安全的，效率较低。</strong></p>
+<h3 id="1-9-Java中的集合"><a href="#1-9-Java中的集合" class="headerlink" title="1.9 Java中的集合"></a>1.9 Java中的集合</h3><p>Java中的集合分为存值的和存key-value,即Collection和Map</p>
+<p>存值的分为（接口）：List和Set</p>
+<ul>
+<li>List是有序的，可以重复的</li>
+<li>Set是无序的，不可以重复的，根据equals和hashCode来判断，意思一个对象要存储到Set中必须要重写equals方法和hashCode方法</li>
+</ul>
+<p>存key-value的分为（接口）：Map</p>
+<h3 id="1-10-ArrayList-和-LinkedList区别"><a href="#1-10-ArrayList-和-LinkedList区别" class="headerlink" title="1.10 ArrayList 和 LinkedList区别"></a>1.10 ArrayList 和 LinkedList区别</h3><p>List常用的就是ArrayList 和 LinkedList，从区别和使用场景说明</p>
+<ul>
+<li><p>ArrayList底层使用的是<strong>数组</strong></p>
+<p>数组具有索引，<strong>查询特定元素比较快，插入，删除和修改比较慢</strong>（数组在内存中是一块连续的内存区域，如果删除插入需要移动内存）</p>
+</li>
+<li><p>LinkedList底层使用的是<strong>链表</strong></p>
+<p>链表不要求内存地址是连续的，在当前元素中存放下一个或上一个元素的地址，查询时需要从头一个一个查询，<strong>查询效率低</strong>，插入不需要移动内存，只需改变指向引用即可，所以<strong>插入删除效率高。</strong></p>
+</li>
+</ul>
+<p>使用场景：</p>
+<ul>
+<li>ArrayList：查询比较多，插入删除少</li>
+<li>LinkedList：插入删除多，查询少</li>
+</ul>
+<h3 id="1-11-HashMap和HashTable的区别"><a href="#1-11-HashMap和HashTable的区别" class="headerlink" title="1.11 HashMap和HashTable的区别"></a>1.11 HashMap和HashTable的区别</h3><p>HashMap和HashTable都可以用来存储key-value的数据</p>
+<ul>
+<li>HashMap是可以把null作为key和value的，而HashTable是不可以的</li>
+<li>HashMap是线程不安全的，效率较高，而HashTable是线程安全的，效率较低</li>
+</ul>
+<p>当你想线程安全又想效率高的时候，使用ConcurrentHashMap，底层是把整个Map分为N个Segment（类似HashTable），可以提供相同的线程安全，但是效率提升N倍，默认提升16倍</p>
+<h3 id="1-12-实现一个拷贝文件的工具使用字符流还是字节流"><a href="#1-12-实现一个拷贝文件的工具使用字符流还是字节流" class="headerlink" title="1.12 实现一个拷贝文件的工具使用字符流还是字节流"></a>1.12 实现一个拷贝文件的工具使用字符流还是字节流</h3><p>我们拷贝的文件不确定就只包含字符流，也可能有字节流（图片，音乐，视频等），为了考虑通用性，我们统一采用字节流。</p>
+<h3 id="1-13-遍历HashMap"><a href="#1-13-遍历HashMap" class="headerlink" title="1.13 遍历HashMap"></a>1.13 遍历HashMap</h3><p>第一种：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Object,Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span>(Object key:map.KeySet)&#123;</span><br><span class="line">    Obejct value = map.get(key);</span><br><span class="line">    System.out.println(key+<span class="string">"  "</span>+value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第二种：通过Map.entrySet使用iterator遍历key和value</p>
+<p>第三种：通过entrySet遍历key和value（容量大时这种方法快）</p>
+<h3 id="1-14-HashMap-HashTable-ConcurrentHashMap"><a href="#1-14-HashMap-HashTable-ConcurrentHashMap" class="headerlink" title="1.14 HashMap,HashTable,ConcurrentHashMap"></a>1.14 HashMap,HashTable,ConcurrentHashMap</h3><p>1.HashMap底层是链表K-V形式存储数据，他的key和value都可以为null，所以HashMap线程不安全</p>
+<p>2.HashTable：底层和HashMap（JDK1.8）一样。是数组加链表，key和value都不能为null，他的操作方法都有Synchronized关键字，所以线程安全的</p>
+<p>3.ConcurrenHashMap:比较HashTable使用了锁分段技术，并且内部结构可以让其在写的时候，对锁的粒度减小，不用给整个ConcurrentHashMap加锁</p>
+<p>ArrayList和LinkedList都是线程不安全的，在开发过程中ArrayList不适用于多线程，通过Collections.synchronizedList可以把它包装为一个线程安全的集合</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Object&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">       list.add(<span class="number">111</span>);</span><br><span class="line">       <span class="comment">//利用synchronized 线程同步锁，保证线程一致性安全</span></span><br><span class="line">       List&lt;Object&gt; list2 = Collections.synchronizedList(list);</span><br><span class="line">       <span class="keyword">synchronized</span> (list2)&#123;</span><br><span class="line">           <span class="keyword">try</span> &#123;</span><br><span class="line">               Iterator&lt;Object&gt; iterator = list2.iterator();</span><br><span class="line">               <span class="keyword">while</span>(iterator.hasNext())&#123;</span><br><span class="line">                   System.out.println(iterator.next());</span><br><span class="line">               &#125;</span><br><span class="line">           &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">               e.printStackTrace();</span><br><span class="line">           &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">               System.out.println(<span class="string">"111"</span>);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-15-静态代理和动态代理"><a href="#1-15-静态代理和动态代理" class="headerlink" title="1.15 静态代理和动态代理"></a>1.15 静态代理和动态代理</h3><p>1.由静态代理到动态代理</p>
+<p>静态代理：在编译时候，将接口，实现类，代理类都手动创建好，但是我们需要很多代理的时候，手动创建就很浪费时间，还会出现大量的重复代码，这个时候我们就可以采用动态代理的方法，在程序运行期间。根据需要动态的创建代理类以及其实例，完成功能。</p>
+<p>2.代理实现的一般模式</p>
+<ul>
+<li>定义总接口Iuser</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Iuser</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">eat</span><span class="params">(String s)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建具体实现类UserImpl</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserImpl</span> <span class="keyword">implements</span> <span class="title">Iuser</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"我要吃"</span>+s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建代理类UserProxy</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserProxy</span> <span class="keyword">implements</span> <span class="title">Iuser</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Iuser user = <span class="keyword">new</span> UserImpl();</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"静态代理前置内容"</span>);</span><br><span class="line">        user.eat(s);</span><br><span class="line">        System.out.println(<span class="string">"静态代理后置内容"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建测试类ProxyTest</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyTest</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        UserProxy proxy = <span class="keyword">new</span> UserProxy();</span><br><span class="line">        proxy.eat(<span class="string">"苹果"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;s</span><br></pre></td></tr></table></figure>
+<p>JDK动态代理：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.接口（和上面一样）</span></span><br><span class="line"><span class="comment">//2.创建具体实现类(和上面一样)</span></span><br><span class="line"><span class="comment">//3.创建实现InvocationHandler接口的代理类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicProxy</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span></span>&#123;</span><br><span class="line">    <span class="comment">//接受具体实现类的实例对象</span></span><br><span class="line">    <span class="keyword">private</span> Object o;</span><br><span class="line">    <span class="comment">//使用带参数的构造器来传递具体实现的对象</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DynamicProxy</span><span class="params">(object o)</span></span>&#123;<span class="keyword">this</span>.o=o;&#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Obejct <span class="title">invoke</span><span class="params">(Object proxy,Method method,Obejct[] args)</span><span class="keyword">throws</span> Throwable</span>&#123;</span><br><span class="line">       System.out.println(<span class="string">"前置内容"</span>);</span><br><span class="line">　　　　method.invoke(object, args);</span><br><span class="line">　　　　System.out.println(<span class="string">"后置内容"</span>);</span><br><span class="line">　　　　<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//4.创建测试类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyTest</span> </span>&#123;</span><br><span class="line">　　<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">　　　　Iuser user = <span class="keyword">new</span> UserImpl();</span><br><span class="line">　　　　InvocationHandler h = <span class="keyword">new</span> DynamicProxy(user);</span><br><span class="line">　　　　Iuser proxy = (Iuser) Proxy.newProxyInstance(Iuser.class.getClassLoader(), <span class="keyword">new</span> Class[]&#123;Iuser.class&#125;, h);</span><br><span class="line">　　　　proxy.eat(<span class="string">"苹果"</span>);</span><br><span class="line">　　&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>动态代理的过程：</p>
+<p>1.接口，使用接口指向实现类的多态实现方式，有效的将实现和调用之间解耦，便于后期的维护和修改，面向接口编程。</p>
+<p>2.</p>
+<h2 id="2-多线程"><a href="#2-多线程" class="headerlink" title="2.多线程"></a>2.多线程</h2><h3 id="2-1线程的几种实现方式"><a href="#2-1线程的几种实现方式" class="headerlink" title="2.1线程的几种实现方式"></a>2.1线程的几种实现方式</h3><p>并行：两个或者多个事件在同一时刻发生</p>
+<p>并发：两个或者多个事件在同一时间间隔发生</p>
+<p>①实现方式</p>
+<ul>
+<li>通过继承Thread类实现一个线程</li>
+<li>通过实现Runnable接口实现一个线程</li>
+<li>实现callable接口通过FutureTask包装器来创建Thread线程</li>
+<li>使用ExecutorService，Callable，Future实现返回值线程</li>
+</ul>
+<p>继承的扩展性不强，Java支持的是单继承，所以推荐使用第二种方法实现</p>
+<p>②启动</p>
+<p>调用start方法：Thread thread = new Thread(继承Thread的对象/实现了Runnable的对象)；thread.start();启动之后执行线程的run方法</p>
+<p>③怎样区分线程：在一个系统中有很多线程，每个线程都会打印日志，怎样区分：    </p>
+<p>​    在线程创建的时候设置一个线程的名称。</p>
+<h3 id="2-2-线程池的创建方法"><a href="#2-2-线程池的创建方法" class="headerlink" title="2.2 线程池的创建方法"></a>2.2 线程池的创建方法</h3><p> Java通过Executors提供四种线程池，分别为：</p>
+<p>newCachedThreadPool创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。</p>
+<p>newFixedThreadPool 创建一个定长线程池，可控制线程最大并发数，超出的线程会在队列中等待。</p>
+<p>newScheduledThreadPool 创建一个定长线程池，支持定时及周期性任务执行。</p>
+<p>newSingleThreadExecutor 创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。</p>
+<h3 id="2-3-Runnable接口和Callable接口的区别。"><a href="#2-3-Runnable接口和Callable接口的区别。" class="headerlink" title="2.3 Runnable接口和Callable接口的区别。"></a>2.3 Runnable接口和Callable接口的区别。</h3><p>Callable接口和Runnable接口相似，区别就是Callable需要实现call方法，而Runnable需要实现run方法；并且，<strong>call方法还可以返回任何对象</strong>，无论是什么对象，JVM都会当作Object来处理。但是如果使用了泛型，我们就不用每次都对Object进行转换了。</p>
+<p>Runnable和Callable都是接口</p>
+<p>不同之处：<br>1.<strong>Callable可以返回一个类型V，而Runnable不可以</strong><br>2.<strong>Callable能够抛出checked exception,而Runnable不可以</strong>。<br>3.Runnable是自从java1.1就有了，而Callable是1.5之后才加上去的<br>4.<strong>Callable和Runnable都可以应用于executors。而Thread类只支持Runnable</strong>.<br>上面只是简单的不同，其实这两个接口在用起来差别还是很大的。Callable与executors联合在一起，在任务完成时可立刻获得一个更新了的Future。而Runable却要自己处理</p>
+<h3 id="2-4-Java中的sleep-和wait-的区别"><a href="#2-4-Java中的sleep-和wait-的区别" class="headerlink" title="2.4 Java中的sleep()和wait()的区别"></a>2.4 Java中的sleep()和wait()的区别</h3><ul>
+<li>sleep方法属于Thread类，而wait方法是属于Object对象的</li>
+<li>调用sleep之后程序暂停执行，会让出cpu，但是不让出监视器，线程不会释放线程锁，而调用wait之后线程自动放弃对象锁，进入线程的等待池中，只有调用notify方法线程才会进入对象池准备运行。</li>
+</ul>
+<h3 id="2-5-介绍下CAS-无锁技术"><a href="#2-5-介绍下CAS-无锁技术" class="headerlink" title="2.5 介绍下CAS(无锁技术)"></a>2.5 介绍下CAS(无锁技术)</h3><p>CAS的全称是Compare And Swap 即比较交换，属于乐观锁。典型的例子就是原子类，通过CAS自旋实现原子操作的更新。</p>
+<p>执行函数：CAS(V,E,N)</p>
+<pre><code>其包含3个参数
+
+V表示需要读写的内存位置
+
+E表示进行比较的预期原值
+
+N表示打算写入的新值
+</code></pre><p><img src="https://ae01.alicdn.com/kf/HTB1ycSrP3HqK1RjSZFE763GMXXaz.png" alt></p>
+<h3 id="2-6-volatile关键字的作用和原理。"><a href="#2-6-volatile关键字的作用和原理。" class="headerlink" title="2.6 volatile关键字的作用和原理。"></a>2.6 volatile关键字的作用和原理。</h3><ul>
+<li><p>保持内存的可见性</p>
+</li>
+<li><p>防止指令重排</p>
+<h4 id="volatile如何保持内存可见性"><a href="#volatile如何保持内存可见性" class="headerlink" title="volatile如何保持内存可见性"></a>volatile如何保持内存可见性</h4><p>volatile的特殊规则就是：</p>
+<ul>
+<li>read、load、use动作必须<strong>连续出现</strong>。</li>
+<li>assign、store、write动作必须<strong>连续出现</strong>。</li>
+</ul>
+<p>所以，使用volatile变量能够保证:</p>
+<ul>
+<li>每次<code>读取前</code>必须先从主内存刷新最新的值。</li>
+<li>每次<code>写入后</code>必须立即同步回主内存当中。</li>
+</ul>
+<h4 id="volatile如何防止指令重排"><a href="#volatile如何防止指令重排" class="headerlink" title="volatile如何防止指令重排"></a>volatile如何防止指令重排</h4><p>volatile关键字通过<code>“内存屏障”</code>来防止指令被重排序。</p>
+<p>为了实现volatile的内存语义，编译器在生成字节码时，会在指令序列中插入内存屏障来禁止特定类型的处理器重排序。然而，对于编译器来说，发现一个最优布置来最小化插入屏障的总数几乎不可能，为此，Java内存模型采取保守策略。</p>
+<p>下面是基于保守策略的JMM内存屏障插入策略：</p>
+<ul>
+<li>在每个volatile写操作的前面插入一个StoreStore屏障。</li>
+<li>在每个volatile写操作的后面插入一个StoreLoad屏障。</li>
+<li>在每个volatile读操作的后面插入一个LoadLoad屏障。</li>
+<li>在每个volatile读操作的后面插入一个LoadStore屏障。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-7-什么是ThreadLocal。"><a href="#2-7-什么是ThreadLocal。" class="headerlink" title="2.7 什么是ThreadLocal。"></a>2.7 什么是ThreadLocal。</h3><h3 id="2-8-锁"><a href="#2-8-锁" class="headerlink" title="2.8 锁"></a>2.8 锁</h3><p>悲观锁：每次去读取数据时候都认为别的线程会修改数据，所以别的线程拿数据需要block直到拿到锁，这样别人想拿到这个数据会阻塞知道它拿到锁，应用有：关系数据库中的行锁，表锁，读锁，写锁等，Java中的Synchronized关键字实现也是悲观锁。</p>
+<p>使用场景：高并发，多读少写。</p>
+<p>乐观锁：顾名思义。很乐观，每次去拿数据都认为别人不会修改，所以不会去上锁，更新时候会去判断有没有别人去更新数据，可以使用版本号机制，乐观锁用于多读的类型，可以提高吞吐量，典型的乐观锁有：数据库的writer_condition机制，Java.util.concurrent.atomic包下的原子类所用的CAS实现方式等。</p>
+<p>使用场景：并发量不大</p>
+<h3 id="2-9CountDownLatch"><a href="#2-9CountDownLatch" class="headerlink" title="2.9CountDownLatch"></a>2.9CountDownLatch</h3><p><strong>概念：</strong>CountDownLatch是一个同步工具类，来协调多线程之间的同步，</p>
+<p>CountDownLatch能使一个线程在等待另外一个线程完成自己的工作之后再继续执行，使用一个计数器完成，计数器的初始值为线程数。每当完成一个线程的时候，计数器就减一，当计数器为0 的时候，就代表所有的线程都完成了任务，然后在CountDownLatch上等待的线程就可以恢复执行任务。</p>
+<p><strong>CountDownLatch的用法：</strong></p>
+<p><strong>用法一</strong>：某一线程在开始前等待n个线程执行完毕，将计数器化为n，每当一个任务执行完毕，就把计数器减一，当计数器为0，CountDownLatch上的线程就会被唤醒，继续执行。典型就是启动一个服务的时候，主线程需要等待多个组件加载完毕，之后再继续执行。</p>
+<p><strong>用法二：</strong>实现多个线程开始执行任务的最大并行量。同一时刻多个线程开始执行。把多个线程都放在起点，等待开始，然后同时执行。做法是初始化一个共享的CountDownLatch（1），将初始值即为1，多个线程开始执行任务前首先CountDownLatch.await()，当主线程调用countDown()时，计数器为0，多个线程同时被唤醒。</p>
+<p><strong>CountDownLatch的不足：一次性。</strong></p>
+<h2 id="3-JVM"><a href="#3-JVM" class="headerlink" title="3.JVM"></a>3.JVM</h2><h3 id="3-1-JVM组成"><a href="#3-1-JVM组成" class="headerlink" title="3.1 JVM组成"></a>3.1 JVM组成</h3><p><img src="https://ae01.alicdn.com/kf/HTB1W_unP7voK1RjSZPf760PKFXaq.png" alt></p>
+<p>堆内存：指Java对象存储的区域，任何一个new字段分配Java实例和对象都在这里。Java堆内存可以使用-Xms -Xmx 控制，jdk1.7之后把常量池从方法区移动到堆内存上了。</p>
+<p>方法区：存储被虚拟机加载的类的信息，常量，静态变量，或者是程序编译后的代码数据。方法区在jdk1.7之前是永久代，jdk1.8之后永久代被删除</p>
+<p>Java虚拟机栈：虚拟机执行的每一个方法，都会创建一个栈帧，存储局部变量表，操作数栈，动态链接，方法出口等信息</p>
+<p>本地方法区栈：与虚拟机栈的作用类似，相比于虚拟机栈为java方法服务，本地方法栈为虚拟机使用的Native方法服务，执行本地方法的时候会往本地方法区栈里存储东西。</p>
+<p>程序计数器：指示虚拟机执行下一条需要执行的字节码指令</p>
+<p>以上是JVM内存划分情况，其中方法区和堆被JVM中多个线程共享，虚拟机栈，本地方法栈，pc寄存器都是每个线程独立的，不会与其他线程共享，所以java在new实例化一个对象的时候，一方面是在虚拟机栈创建一个该对象的引用，另一方面是在堆上创建该对象的实例，将对象的引用指向该对象的实例，该对象引用存放在每一个方法对应的栈帧中。</p>
+<h3 id="3-2-类加载的过程"><a href="#3-2-类加载的过程" class="headerlink" title="3.2 类加载的过程"></a>3.2 类加载的过程</h3><p><strong>1、加载</strong><br>简单的说，类加载阶段就是由类加载器负责根据一个类的全限定名来<strong>读取此类的二进制字节流到JVM内部，并存储在运行时内存区的方法区，然后将其转换为一个与目标类型对应的java.lang.Class对象实例</strong>（Java虚拟机规范并没有明确要求一定要存储在堆区中，只是hotspot选择将Class对象放在哪个存储在方法区中），这个Class对象在日后就会作为方法区中该类的各种数据的访问入口。<br><strong>2、链接</strong><br>链接阶段要做的是将加载到JVM中的二进制字节流的类数据信息合并到JVM的运行时状态中，经由验证、准备和解析三个阶段。</p>
+<ul>
+<li>验证<br>验证类数据信息是否符合JVM规范，是否是一个有效的字节码文件，验证内容涵盖了类数据信息的<strong>格式验证、语义分析、操作验证</strong>等。<br>格式验证：验证是否符合class文件规范<br>语义验证：检查一个被标记为final的类型是否包含子类；检查一个类中的final方法是否被子类进行重写；确保父类和子类之间没有不兼容的一些方法声明（比如方法签名相同，但方法的返回值不同）<br>操作验证：在操作数栈中的数据必须进行正确的操作，对常量池中的各种符号引用执行验证（通常在解析阶段执行，检查是否通过符号引用中描述的全限定名定位到指定类型上，以及类成员信息的访问修饰符是否允许访问等）</li>
+<li>准备<br><strong>为类中的所有静态变量分配内存空间</strong>，并为其<strong>设置一个初始值（</strong>由于还没有产生对象，实例变量不在此操作范围内）<br><strong>被final修饰的静态变量，会直接赋予原值</strong>；类字段的字段属性表中存在ConstantValue属性，则在准备阶段，其值就是ConstantValue的值</li>
+<li>解析<br><strong>将常量池中的符号引用转为直接引用</strong>（得到类或者字段、方法在内存中的指针或者偏移量，以便直接调用该方法），这个可以在初始化之后再执行。<br>可以认为是一些静态绑定的会被解析，动态绑定则只会在运行时进行解析；静态绑定包括一些final方法(不可以重写),static方法(只会属于当前类)，构造器(不会被重写)</li>
+</ul>
+<p><strong>3、初始化</strong><br>将一个类中所有被static关键字标识的代码统一执行一遍，如果执行的是静态变量，那么就会使用用户指定的值覆盖之前在准备阶段设置的初始值；如果执行的是static代码块，那么在初始化阶段，<strong>JVM就会执行static代码块中定义的所有操作</strong>。<br>所有类变量初始化语句和静态代码块都会在编译时被前端编译器放在收集器里头，存放到一个特殊的方法中，这个方法就是<clinit>方法，即类/接口初始化方法。该方法的作用就是初始化一个中的变量，使用用户指定的值覆盖之前在准备阶段里设定的初始值。任何invoke之类的字节码都无法调用<clinit>方法，因为该方法只能在类加载的过程中由JVM调用。<br>如果父类还没有被初始化，那么优先对父类初始化，但在<clinit>方法内部不会显示调用父类的<clinit>方法，由JVM负责保证一个类的<clinit>方法执行之前，它的父类<clinit>方法已经被执行。<br>JVM必须确保一个类在初始化的过程中，如果是多线程需要同时初始化它，仅仅只能允许其中一个线程对其执行初始化操作，其余线程必须等待，只有在活动线程执行完对类的初始化操作之后，才会通知正在等待的其他线程。</clinit></clinit></clinit></clinit></clinit></clinit></p>
+<p><img src="https://ae01.alicdn.com/kf/HTB1s9apP3HqK1RjSZFP763wapXao.png" alt></p>
+<h3 id="3-3双亲委派模型"><a href="#3-3双亲委派模型" class="headerlink" title="3.3双亲委派模型"></a>3.3双亲委派模型</h3><p>当一个类加载器接收到一个类加载的任务时，不会立即展开加载，而是将加载任务委托给它的父类加载器去执行，每一层的类都采用相同的方式，直至委托给最顶层的启动类加载器为止。如果父类加载器无法加载委托给它的类，便将类的加载任务退回给下一级类加载器去执行加载。</p>
+<p>双亲委托模型的工作过程是：如果一个类加载器收到了类加载的请求，它首先不会自己去尝试加载这个类，而是把这个请求委托给父类加载器去完成，每一个层次的类加载器都是如此，因此所有的加载请求最终都应该传送到顶层的启动类加载器中，只有当父类加载器反馈自己无法完成这个加载请求（它的搜索范围中没有找到所需要加载的类）时，子加载器才会尝试自己去加载。<br>使用双亲委托机制的好处是：能够有效确保一个类的全局唯一性，当程序中出现多个限定名相同的类时，类加载器在执行加载时，始终只会加载其中的某一个类。</p>
+<p>使用双亲委托模型来组织类加载器之间的关系，有一个显而易见的好处就是Java类随着它的类加载器一起具备了一种带有优先级的层次关系。例如类java.lang.Object，它存放在rt.jar之中，无论哪一个类加载器要加载这个类，最终都是委托给处于模型最顶端的启动类加载器进行加载，因此Object类在程序的各种加载器环境中都是同一个类。相反，如果没有使用双亲委托模型，由各个类加载器自行去加载的话，如果用户自己编写了一个称为java.lang.Object的类，并放在程序的ClassPath中，那系统中将会出现多个不同的Object类，Java类型体系中最基础的行为也就无法保证，应用程序也将会变得一片混乱。如果自己去编写一个与rt.jar类库中已有类重名的Java类，将会发现可以正常编译，但永远无法被加载运行。</p>
+<p>双亲委托模型对于保证Java程序的稳定运作很重要，但它的实现却非常简单，实现双亲委托的代码都集中在java.lang.ClassLoader的loadClass()方法中，逻辑清晰易懂：先检查是否已经被加载过，若没有加载则调用父类加载器的loadClass()方法，若父加载器为空则默认使用启动类加载器作为父加载器。如果父类加载器加载失败，抛出ClassNotFoundException异常后，再调用自己的findClass方法进行加载。</p>
+<h3 id="3-4有哪些类加载器。"><a href="#3-4有哪些类加载器。" class="headerlink" title="3.4有哪些类加载器。"></a>3.4有哪些类加载器。</h3><p>类加载的方法：</p>
+<p>1.隐式装载， 程序在运行过程中当碰到通过new 等方式生成对象时，隐式调用类装载器加载对应的类到jvm中</p>
+<p>2.显式装载， 通过class.forname()等方法，显式加载需要的类</p>
+<p>JDK提供的默认的ClassLoader:</p>
+<ul>
+<li><strong>Bootstrp loaderBootstrp加载器是用C++语言写的，它是在Java虚拟机启动后初始化的，它主要负责加载%JAVA_HOME%/jre/lib,-Xbootclasspath参数指定的路径以及%JAVA_HOME%/jre/classes中的类。</strong></li>
+<li><strong>ExtClassLoader  Bootstrp loader加载ExtClassLoader,并且将ExtClassLoader的父加载器设置为Bootstrp loader.ExtClassLoader是用Java写的，具体来说就是 sun.misc.Launcher$ExtClassLoader，ExtClassLoader主要加载%JAVA_HOME%/jre/lib/ext，此路径下的所有classes目录以及java.ext.dirs系统变量指定的路径中类库。</strong></li>
+<li><strong>AppClassLoader Bootstrp loader加载完ExtClassLoader后，就会加载AppClassLoader,并且将AppClassLoader的父加载器指定为 ExtClassLoader。AppClassLoader也是用Java写成的，它的实现类是 sun.misc.Launcher$AppClassLoader，另外我们知道ClassLoader中有个getSystemClassLoader方法,此方法返回的正是AppclassLoader.AppClassLoader主要负责加载classpath所指定的位置的类或者是jar文档，它也是Java程序默认的类加载器。</strong></li>
+</ul>
+<p><img src="https://ae01.alicdn.com/kf/HTB1jmapP3HqK1RjSZFP763wapXaI.png" alt></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        ClassLoader c = Test.class.getClassLoader();</span><br><span class="line">        System.out.println(c);</span><br><span class="line">        ClassLoader c1 = c.getParent();</span><br><span class="line">        System.out.println(c1);</span><br><span class="line">        ClassLoader c2 = c1.getPatent();</span><br><span class="line">        System.out.println(c2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//结果</span></span><br><span class="line">---AppClassLoader---</span><br><span class="line">---ExtClassLoader---</span><br><span class="line">Null</span><br></pre></td></tr></table></figure>
+<h3 id="3-5-自己写的java-lang-String能否被加载"><a href="#3-5-自己写的java-lang-String能否被加载" class="headerlink" title="3.5 自己写的java.lang.String能否被加载"></a>3.5 自己写的java.lang.String能否被加载</h3><p>因为双亲委派原则，加载过程中会先检查类是否被已加载，检查顺序是自底向上，从Custom ClassLoader到BootStrap ClassLoader逐层检查，只要某个classloader已加载就视为已加载此类，保证此类只所有ClassLoader加载一次。而加载的顺序是自顶向下，也就是说当发现这个类没有的时候会先去让自己的父类去加载，父类没有再让儿子去加载，那么在这个例子中我们自己写的String应该是被Bootstrap ClassLoader加载了，所以App ClassLoader就不会再去加载我们写的String类了，导致我们写的String类是没有被加载的。</p>
+<h3 id="3-6-CMS和G1的比较"><a href="#3-6-CMS和G1的比较" class="headerlink" title="3.6 CMS和G1的比较"></a>3.6 CMS和G1的比较</h3><p><strong>CMS四部曲：</strong></p>
+<ul>
+<li>初始标记，需要所有的用户线程都停下来</li>
+<li>并发标记，和线程一起运行进行标记</li>
+<li>重新标记，需要用户线程停下来，为了对并发标记进行审核</li>
+<li>并发清理，与用户线程一起运行进行垃圾清理</li>
+</ul>
+<p><strong>缺点</strong>：1.CMS收集器对Cpu资源非常敏感</p>
+<p>​       2.CMS收集器无法清除浮动垃圾</p>
+<p>​       3.CMS基于<strong>标记清除算法</strong>，会产生大量的碎片</p>
+<p><strong>优点</strong>：并发，低停顿</p>
+<p><strong>G1四部曲：</strong></p>
+<p>特点：1.并行于并发，分代收集，空间整合，可预测的停顿</p>
+<ul>
+<li>初始标记</li>
+<li>并发标记</li>
+<li>最终标记</li>
+<li>筛选回收</li>
+</ul>
+<hr>
+<h2 id="4-数据库"><a href="#4-数据库" class="headerlink" title="4.数据库"></a>4.数据库</h2><h3 id="4-1-Mysql索引的数据结构。"><a href="#4-1-Mysql索引的数据结构。" class="headerlink" title="4.1 Mysql索引的数据结构。"></a>4.1 Mysql索引的数据结构。</h3><ul>
+<li>二叉树</li>
+<li>红黑树</li>
+<li>Hash</li>
+<li>B-Tree</li>
+<li>B+Tree</li>
+</ul>
+<h3 id="4-2-Mysql索引类型"><a href="#4-2-Mysql索引类型" class="headerlink" title="4.2 Mysql索引类型"></a>4.2 Mysql索引类型</h3><p>1.普通索引：这是最基本的索引，它没有任何限制，比如上文中为title字段创建的索引就是一个普通索引，MyIASM中默认的BTREE类型的索引，也是我们大多数情况下用到的索引。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">-- 直接创建索引--</span><br><span class="line">CREATE INDEX index_name ON table(column(length))</span><br><span class="line">-- 修改表结构的时候加索引--</span><br><span class="line">ALTER TABLE table_name ADD INDEX index_name ON(column(length))</span><br><span class="line">-- 创建表的时候加入索引--</span><br><span class="line">CREATE TABLE &apos;table&apos;(</span><br><span class="line">&apos;id&apos; int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">&apos;title&apos; char(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,</span><br><span class="line">&apos;conent&apos; text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,</span><br><span class="line">&apos;time&apos; int (10) NULL DEFAULT NULL,</span><br><span class="line">PRIMARY KEY(&apos;id&apos;),</span><br><span class="line">INDEX index_name (title(length))</span><br><span class="line">)</span><br><span class="line">-- 删除索引--</span><br><span class="line">DROP INDEX index_name ON table</span><br></pre></td></tr></table></figure>
+<p>2.唯一索引：与普通索引类似，不同的就是：索引列的值必须唯一，但允许有空值（注意和主键不同）。如果是组合索引，则列值的组合必须唯一，创建方法和普通索引类似。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">-- 创建唯一索引--</span><br><span class="line">CREATE UNIQUE INDEX index_name ON table(column(length))</span><br><span class="line">-- 修改表结构--</span><br><span class="line">ALTER TABLE table_name ADD UNIQUE indexName ON (column(length))</span><br><span class="line">-- 创建表的时候直接指定--</span><br><span class="line">CREATE TABLE `table` (</span><br><span class="line">`id` int(11) NOT NULL AUTO_INCREMENT ,</span><br><span class="line">`title` char(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,</span><br><span class="line">`content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL ,</span><br><span class="line">`time` int(10) NULL DEFAULT NULL ,</span><br><span class="line">PRIMARY KEY (`id`),</span><br><span class="line">UNIQUE indexName (title(length))</span><br></pre></td></tr></table></figure>
+<p>3.全文索引：MySQL从3.23.23版开始支持全文索引和全文检索，FULLTEXT索引仅可用于 MyISAM 表；他们可以从CHAR、VARCHAR或TEXT列中作为CREATE TABLE语句的一部分被创建，或是随后使用ALTER TABLE 或CREATE INDEX被添加。对于较大的数据集，将你的资料输入一个没有FULLTEXT索引的表中，然后创建索引，其速度比把资料输入现有FULLTEXT索引的速度更为快。不过切记对于大容量的数据表，生成全文索引是一个非常消耗时间非常消耗硬盘空间的做法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">-- 创建表的适合添加全文索引--</span><br><span class="line">CREATE TABLE `table` (</span><br><span class="line">`id` int(11) NOT NULL AUTO_INCREMENT ,</span><br><span class="line">`title` char(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,</span><br><span class="line">`content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL ,</span><br><span class="line">`time` int(10) NULL DEFAULT NULL ,</span><br><span class="line">PRIMARY KEY (`id`),</span><br><span class="line">FULLTEXT (content)</span><br><span class="line">);</span><br><span class="line">-- 修改表结构添加全文索引--</span><br><span class="line">ALTER TABLE article ADD FULLTEXT index_content(content)</span><br><span class="line">-- 直接创建索引--</span><br><span class="line">CREATE FULLTEXT INDEX index_content ON article(content)[]</span><br></pre></td></tr></table></figure>
+<p>4.单列索引和多列索引：多个单列索引与单个多列索引的查询效果不同，因为执行查询时，MySQL只能使用一个索引，会从多个索引中选择一个限制最为严格的索引。</p>
+<p>5.组合索引：平时用的SQL查询语句一般都有比较多的限制条件，所以为了进一步榨取MySQL的效率，就要考虑建立组合索引。</p>
+<p>例如上表中针对title和time建立一个组合索引：</p>
+<p>ALTER TABLE article ADD INDEX index_titme_time (title(50),time(10))。</p>
+<p>建立这样的组合索引，其实是相当于分别建立了下面两组组合索引：</p>
+<p>–title,time</p>
+<p>–title</p>
+<h3 id="4-3-Sql语句优化"><a href="#4-3-Sql语句优化" class="headerlink" title="4.3 Sql语句优化"></a>4.3 Sql语句优化</h3><p>  建立索引的原则：</p>
+<ul>
+<li><p>一个表的索引不是越多越好，也没有一个具体的数字，根据以往的经验，<strong>一个表的索引最多不能超过6个，</strong>因为索引越多，对update和insert操作也会有性能的影响，涉及到索引的新建和重建操作。</p>
+</li>
+<li><p>多数查询经常使用的列；</p>
+<p>很少进行修改操作的列；</p>
+<p>索引需要建立在数据差异化大的列上</p>
+</li>
+</ul>
+<h3 id="4-4-SQL中Group-By的使用"><a href="#4-4-SQL中Group-By的使用" class="headerlink" title="4.4 SQL中Group By的使用"></a>4.4 SQL中Group By的使用</h3><p>“Group By”从字面意义上理解就是根据“By”指定的规则对数据进行分组，所谓的分组就是将一个“数据集”划分成若干个“小区域”，然后针对若干个“小区域”进行数据处理。</p>
+<p><img src="https://ae01.alicdn.com/kf/HTB1LH9mPYvpK1RjSZPi762mwXXah.png" alt></p>
+<ul>
+<li><p>简单Group By:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select 类别，sum(数量) as 数量之和</span><br><span class="line">from A</span><br><span class="line">group by 类别</span><br></pre></td></tr></table></figure>
+<p><img src="https://ae01.alicdn.com/kf/HTB1nMdYiTZmx1VjSZFG761x2XXae.png" alt></p>
+</li>
+<li><p>Group By + Order By</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select 类别 ，sum(数量) as 数量之和</span><br><span class="line">form A</span><br><span class="line">group by 类别</span><br><span class="line">order by sum(数量) desc</span><br></pre></td></tr></table></figure>
+<p><img src="https://ae01.alicdn.com/kf/HTB1.1mOP4jaK1RjSZKz760VwXXaw.png" alt></p>
+</li>
+<li><p>Group By中select指定的字段限制</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select 类别,sum(数量) as 数量之和,摘要</span><br><span class="line">from A</span><br><span class="line">group by 类别</span><br><span class="line">order by 类别 desc</span><br></pre></td></tr></table></figure>
+<p><img src="https://ae01.alicdn.com/kf/HTB1X3yeP9rqK1RjSZK9760yypXaF.png" alt></p>
+</li>
+<li><p>Group By All</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select 类别，摘要，sum(数量) as 数量之和</span><br><span class="line">from A</span><br><span class="line">group by all 类型，摘要</span><br></pre></td></tr></table></figure>
+<p><img src="https://ae01.alicdn.com/kf/HTB1BZ9KP5LaK1RjSZFx761mPFXau.png" alt></p>
+</li>
+</ul>
+<h3 id="4-5-内连接和外连接"><a href="#4-5-内连接和外连接" class="headerlink" title="4.5 内连接和外连接"></a>4.5 内连接和外连接</h3><p><strong>内连接：</strong>内连接指的是把表连接时表与表之间匹配的数据行查询出来，就是两张表之间数据行匹配时，要同时满足ON语句后面的条件才行。</p>
+<p>内连接的语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select xxx from xxx inner join xxx on xxx;</span><br></pre></td></tr></table></figure>
+<p><strong>左外连接:</strong> 包含左边表的全部行（不管右边的表中是否存在与它们匹配的行），以及右边表中全部匹配的行<br><strong>右外连接:</strong> 包含右边表的全部行（不管左边的表中是否存在与它们匹配的行），以及左边表中全部匹配的行<br><strong>全外连接:</strong> 包含左、右两个表的全部行，不管另外一边的表中是否存在与它们匹配的行。<br><strong>交叉连接:</strong> 生成笛卡尔积－它不使用任何匹配或者选取条件，而是直接将一个数据源中的每个行与另一个数据源的每个行都一一匹配</p>
+<p><strong>左外连接：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select A.name,B.address</span><br><span class="line">from A</span><br><span class="line">LEFT JOIN B on A.id = B.A_id</span><br></pre></td></tr></table></figure>
+<p><img src="https://ae01.alicdn.com/kf/HTB115SqP6TpK1RjSZKP7613UpXaj.png" alt></p>
+<p><strong>右外连接：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select A.name,B.address</span><br><span class="line">from A</span><br><span class="line">RIGHT JOIN B on A.id = B.A_id</span><br></pre></td></tr></table></figure>
+<p><img src="https://ae01.alicdn.com/kf/HTB19JiBP4YaK1RjSZFn76180pXaS.png" alt></p>
+<p><strong>内连接</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select A.name,B.address</span><br><span class="line">from A</span><br><span class="line">inner join b on A.id = B.A_id;</span><br></pre></td></tr></table></figure>
+<p><img src="https://ae01.alicdn.com/kf/HTB1rxKrPYrpK1RjSZTE763WAVXaG.png" alt></p>
+<p><strong>全连接：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from A</span><br><span class="line">full join B</span><br></pre></td></tr></table></figure>
+<p><img src="https://ae01.alicdn.com/kf/HTB13delP8LoK1RjSZFu760n0XXao.png" alt></p>
+<p><strong>CROSS JOIN（不带条件where）：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from A</span><br><span class="line">cross join B</span><br></pre></td></tr></table></figure>
+<p><img src="https://ae01.alicdn.com/kf/HTB195SqP6TpK1RjSZKP7613UpXal.png" alt></p>
+<h3 id="4-6-EXPLAIN-简介"><a href="#4-6-EXPLAIN-简介" class="headerlink" title="4.6 EXPLAIN 简介"></a>4.6 EXPLAIN 简介</h3><p>使用EXPLAIN关键字可以模拟优化器执行SQL查询语句，从而知道MySQL是如何处理你的SQL语句的。分析你的查询语句或是表结构的性能瓶颈。 </p>
+<p>➤ 通过EXPLAIN，我们可以分析出以下结果：</p>
+<p>表的读取顺序<br>数据读取操作的操作类型<br>哪些索引可以使用<br>哪些索引被实际使用<br>表之间的引用<br>每张表有多少行被优化器查询<br>➤ 使用方式如下：</p>
+<p>EXPLAIN +SQL语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain select * from t1</span><br></pre></td></tr></table></figure>
+<ul>
+<li>id:select识别符，select的查询序号</li>
+<li>select_type：select类型</li>
+<li>table：对应行正在访问的表。</li>
+<li>type：表的连接类型，访问类型</li>
+<li>possible_keys:查询时可以使用的索引列</li>
+<li>key:key显示的是优化采用哪一个索引可以最小化查询成本</li>
+<li>key_len:索引字段中可能的最大长度</li>
+<li>ref:显示表在key列索引中查找值所用的列或者常量</li>
+<li>rows:找到所需行而读的行数</li>
+<li>Extra:不适合在其他列显示的额外信息</li>
+</ul>
+<h2 id="5-其他"><a href="#5-其他" class="headerlink" title="5.其他"></a>5.其他</h2><h3 id="5-1生产者消费者问题"><a href="#5-1生产者消费者问题" class="headerlink" title="5.1生产者消费者问题"></a>5.1生产者消费者问题</h3><h3 id="5-2-排序算法"><a href="#5-2-排序算法" class="headerlink" title="5.2 排序算法"></a>5.2 排序算法</h3><h2 id="6-框架"><a href="#6-框架" class="headerlink" title="6.框架"></a>6.框架</h2><h3 id="6-1-Spring事务的传播机制"><a href="#6-1-Spring事务的传播机制" class="headerlink" title="6.1 Spring事务的传播机制"></a>6.1 Spring事务的传播机制</h3><p>事务的四大特性：Atomic（原子性），Consistency（一致性），lsolation（隔离性），Duraility（持久性）</p>
+<p>key属性确定代理应该给哪个方法增加事务，这样的属性最重要的是传播部分，</p>
+<p>Spring事务的七种传播机制：</p>
+<table>
+<thead>
+<tr>
+<th>传播行为</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PROPAGATION_REQUIRED</td>
+<td>支持当前事务，如果没有事务，就新建一个事务</td>
+</tr>
+<tr>
+<td>PROPAGATION_SUPPORTS</td>
+<td>支持当前事务，如果没有事务，就以非事务的方式执行</td>
+</tr>
+<tr>
+<td>PROPAGATION_MANDATORY</td>
+<td>表示该方法必须在事务中运行，如果当前事务不存在，则会抛出一个异常</td>
+</tr>
+<tr>
+<td>PROPAGATION_REQUIRED_NEW</td>
+<td>表示当前方法必须运行在它自己的事务中。一个新的事务将被启动。如果存在当前事务，在该方法执行期间，当前事务会被挂起。如果使用JTATransactionManager的话，则需要访问TransactionManager</td>
+</tr>
+<tr>
+<td>PROPAGATION_NOT_SUPPORTED</td>
+<td>表示该方法不应该运行在事务中。如果存在当前事务，在该方法运行期间，当前事务将被挂起。如果使用JTATransactionManager的话，则需要访问TransactionManager</td>
+</tr>
+<tr>
+<td>PROPAGATION_NEVER</td>
+<td>表示当前方法不应该运行在事务上下文中。如果当前正有一个事务在运行，则会抛出异常</td>
+</tr>
+<tr>
+<td>PROPAGATION_NESTED</td>
+<td>表示如果当前已经存在一个事务，那么该方法将会在嵌套事务中运行。嵌套的事务可以独立于当前事务进行单独地提交或回滚。如果当前事务不存在，那么其行为与PROPAGATION_REQUIRED一样。注意各厂商对这种传播行为的支持是有所差异的。可以参考资源管理器的文档来确认它们是否支持嵌套事务</td>
+</tr>
+</tbody>
+</table>
+<h3 id="6-2-BeanFactory-和-ApplicationContext有什么区别"><a href="#6-2-BeanFactory-和-ApplicationContext有什么区别" class="headerlink" title="6.2 BeanFactory 和 ApplicationContext有什么区别"></a>6.2 BeanFactory 和 ApplicationContext有什么区别</h3><p>1.Application继承了BeanFactory，spring核心就是BeanFactory工厂，beanFactory采用的是低延迟加载，第一次beanFactory.getBean()就已经创建好了bean，ApplicationContext在此创建      加载初始化bean</p>
+<p>2.ApplicationContext是对BeanFactory的扩展，他可以进行国际化，事件传递和bean 的自动装配以及各种不同应用层的Context实现</p>
+<p>3.实际开发中基本使用ApplicationContext，web项目则使用WebApplicationContext</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BeanFactory beanFactory = <span class="keyword">new</span> XmlBeanFactory(<span class="keyword">new</span> </span><br><span class="line">       ClassPathResource(<span class="string">"applicationContext.xml"</span>));</span><br><span class="line">Person person = (Person)beanFactory.getBean(<span class="string">"Person"</span>);</span><br><span class="line">person.sayHello();<span class="comment">//调用方法</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-3-nginx反向代理"><a href="#6-3-nginx反向代理" class="headerlink" title="6.3 nginx反向代理"></a>6.3 nginx反向代理</h3><p>正向代理是客户端向服务器（Tomcat）发送请求，Tomcat接受参数请求到后台，后台处理业务逻辑，返回给服务器。正向代理有一定被攻击风险，因为用户知道你的域名，但是服务器只知道那个Tomcat，不知道真正的用户是谁。</p>
+<p>反向代理就是客户端发送请求给nginx，nginx经过算法（算法就是负载均衡）轮询把请求按照你的逻辑权重均分给每一个Tomcat。Tomcat接受参数请求到后台，处理业务逻辑</p>
+<h3 id="6-4-Spring配置bean实例化有哪些方法"><a href="#6-4-Spring配置bean实例化有哪些方法" class="headerlink" title="6.4 Spring配置bean实例化有哪些方法"></a>6.4 Spring配置bean实例化有哪些方法</h3><ul>
+<li><p>使用构造器实例化bean</p>
+<p>java代码：</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(string username)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.username = username;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getUsername</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> username;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUsername</span><span class="params">(String username)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.username = username;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​    配置文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"User"</span> <span class="attr">class</span>=<span class="string">"com.model.User"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>​    测试代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext act = <span class="keyword">new</span> ClassPathXmlApplicationContext(</span><br><span class="line">	<span class="keyword">new</span> String[]&#123;<span class="string">"applicationContext.xml"</span>&#125;);</span><br><span class="line">User user = (User)act.getBean(<span class="string">"User"</span>);</span><br><span class="line">user.sayHello();</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>使用静态工厂方法实例化bean</p>
+<p>java代码</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticFactory</span></span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> StaticFactory sf = <span class="keyword">new</span> StaticFactory();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> StaticFactory <span class="title">getBean</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> sf;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">say</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"new Instance"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​    配置文件：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"staticFactory"</span> <span class="attr">class</span>=<span class="string">"com.test.StaticFactory"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">factory-method</span>=<span class="string">"getBean"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext act=<span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="keyword">new</span> String[]&#123;<span class="string">"applicationContext.xml"</span>&#125;);</span><br><span class="line">StaticFactory staticFactory = (StaticFactory)act.getBean(<span class="string">"StaticFactory"</span>);</span><br><span class="line">staticFactory.sayHello();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>实例工厂方法实例bean</li>
+</ul>
+<p>​    java代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.test;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InstanceBean</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> UserDao dao = <span class="keyword">new</span> UserDao();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> UserDao <span class="title">getBeanInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> dao;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">package</span> com.dao;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDao</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(User user)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findByid</span><span class="params">(String id)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">package</span> com.impl;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDaoImp</span> <span class="keyword">implements</span> <span class="title">UserDao</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String hello;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(User user)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"qwqwqw"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findByid</span><span class="params">(String id)</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getHello</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> hello;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setHello</span><span class="params">(String hello)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.hello = hello;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置文件：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"instanceBean"</span> <span class="attr">class</span>=<span class="string">"com.test.InstanceBean"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userDaoA"</span> <span class="attr">factory-bean</span>=<span class="string">"instanceBean"</span> <span class="attr">factory-method</span>=<span class="string">"getBeanInstance"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>测试：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext act = <span class="keyword">new</span> ClassPathXmlApplicationContext(String[]&#123;<span class="string">"applicationContext.xml"</span>&#125;);</span><br><span class="line">UserDao dao = (UserDao)act.getBean(<span class="string">"UserDao"</span>);</span><br><span class="line">String username = <span class="string">"ppp"</span>;</span><br><span class="line">dao.add(<span class="keyword">new</span> User(username));</span><br></pre></td></tr></table></figure>
+<h3 id="6-5-SpringMVC设计模式"><a href="#6-5-SpringMVC设计模式" class="headerlink" title="6.5 SpringMVC设计模式"></a>6.5 SpringMVC设计模式</h3><p>SpringMVC 分为：Model模型层，View视图层，Controller控制器</p>
+<p>SpringMVC是一个轻量级的框架，解耦合，减轻服务器访问压力</p>
+<h3 id="6-6-spring的理解"><a href="#6-6-spring的理解" class="headerlink" title="6.6 spring的理解"></a>6.6 spring的理解</h3><p>spring是一个开源的框架，spring为简化企业级应用开发而生，使用spring使简单的JavaBean实现以前只用EJB才能实现的功能，Spring是一个IOC和AOP容器框架，提供AOP的实现方法，提供对持久层，事务的支持</p>
+<p>提供mvc WEB框架的实现，并对一些常用的API提供了一直的模型封装，spring对现存的各种框架（struts，JSF，Hibernate，Mybatis，webwork）提供了与他们整合的方案</p>
+<p>spring实现了一个BeanFactory工厂，在程序中BeanFactory的子类ApplicationContext，spring相当于一个大的工厂，在工厂文件中通过Bean创建实例对象的类名和实例对象的属性，spring对IOC有良好的支持，但IOC他不是一个技术。而是一个思想，就是原来创建的方式是去new，但IOC控制反转，把你的对象交给IOC容器，注入交给spring进行管理，IOC的底层是Map集合，@Autowired注解最底层就是通过Map的map.get(key)获取map里面注入key-value。</p>
+<p>AOP:面向切面编程，在项目开发中是解决一些系统层面上的问题，比如事务，日志，权限，拦截器设计，springAOP离不开IOC容器，代理的生成、管理以及依赖的对象是由IOC负责，spring默认使用JDK动态代理（创建一个代理实现类invocationHandler）</p>
+<p><img src="https://ae01.alicdn.com/kf/HTB1RHCyP4jaK1RjSZFA762dLFXaC.png" alt></p>
+<h3 id="6-7-SSM-执行流程"><a href="#6-7-SSM-执行流程" class="headerlink" title="6.7 SSM 执行流程"></a>6.7 SSM 执行流程</h3><p>分为：spring业务逻辑层，SpringMVC视图层，SpringMybatis业务持久层</p>
+<p>​    用户页面发送一个请求–&gt;controller控制器接受参数–&gt;返回给servicer完成逻辑处理–&gt;Dao层进行数据库操作–&gt;数据库</p>
+<p>SpringMVC执行流程：</p>
+<p>1.用户发送请求到前段控制器DispatcherServlet</p>
+<p>2.DispatcherSerlvet收到请求调用处理器映射器HandlerMapping</p>
+<p>3.处理器映射器根据请求url找到具体的处理器，生成处理器执行链HandlerExecutionChain(处理器对象，拦截器)–返回给DispatcherSerlvet</p>
+<p>4.DispacherSerlvet根据处理器Handler获取HandlerAdapter执行HandlerAdapter处理一系列操作：参数封装，数据格式转换，数据验证</p>
+<p>5.执行处理器Handler（Controller，也交页面控制器）</p>
+<p>6.Handler执行完成返回ModelAndView</p>
+<p>7.HandlerAdapter将Handler执行结果ModelAndView返回到DispatcherSerlvet</p>
+<p>8.DispatcherSerlvet将ModelAndView传给ViewResolver视图解析器</p>
+<p>9.ViewResolver解析之后返回具体的View</p>
+<p>10.DispatcherSerlvet对View进行渲染视图（Model填充到View中）</p>
+<p>11.DispatcherSerlvet响应用户</p>
+<h3 id="6-8-Mybatis"><a href="#6-8-Mybatis" class="headerlink" title="6.8 Mybatis"></a>6.8 Mybatis</h3><p>1.Mybatis是Java封装的一个持久层的框架，内部封装了JDBC，让开发者注重Sql语句本身，而不用花费精力去加载数据库，关注staStement</p>
+<p>2.Mybatis支持定制化SQL，存储过程已经高级映射，Mybatis避免了JDBC所有代码和手动设置参数以及解集</p>
+<p>有点：1.与spring和好集成，分一级和二级缓存，使用缓存可以更快的获取数据，避免频繁数据库交互</p>
+<p>Mybatis操作数据库的流程：</p>
+<ul>
+<li>创建SQLSessionFactory实例</li>
+<li>实例加载配置文件，创建Configuration对象</li>
+<li>通过Factory创建SQLSession</li>
+<li>通过SQLSession获取maooer接口动态代理</li>
+<li>动态代理回调SQLSession中查询方法</li>
+<li>SQLSession将查询方法转发给Executor</li>
+<li>executor通过反射将数据转化为pojo并返回给SQLSession</li>
+<li>将数据返回给调用者</li>
+</ul>
+<h2 id="7-redis"><a href="#7-redis" class="headerlink" title="7.redis"></a>7.redis</h2><h2 id="8-网络"><a href="#8-网络" class="headerlink" title="8.网络"></a>8.网络</h2><h3 id="8-1-TCP拥塞控制"><a href="#8-1-TCP拥塞控制" class="headerlink" title="8.1 TCP拥塞控制"></a>8.1 TCP拥塞控制</h3><p>概念：拥塞控制是一个全局性的过程，和流量控制不同，流量控制是点对点通信的控制</p>
+<ul>
+<li>慢开始和拥塞避免</li>
+<li>快重传和快恢复</li>
+</ul>
+<h3 id="8-2-TCP报文信息"><a href="#8-2-TCP报文信息" class="headerlink" title="8.2 TCP报文信息"></a>8.2 TCP报文信息</h3><p><img src="http://img.blog.csdn.net/20170227111849763?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvTWFyeTE5OTIwNDEw/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="图片加载中"></p>
+<ul>
+<li>端口号：用来标识统一台计算机的不同的应用进程</li>
+<li>源端口：源端口和IP地址的作用是标识报文的返回地址</li>
+<li>目的端口：端口指明接收方计算机上的应用程序接口</li>
+<li><strong>序号和确认号</strong>：是TCP可靠传输的关键部分。<strong>序号</strong>是本报文段发送的数据组的第一个字节的序号。在TCP传送的流中，每一个字节一个序号。e.g.一个报文段的序号为300，此报文段数据部分共有100字节，则下一个报文段的序号为400。所以序号确保了TCP传输的有序性。确认号，即ACK，指明下一个期待收到的字节序号，表明该序号之前的所有数据已经正确无误的收到。确认号只有当ACK标志为1时才有效。比如建立连接时，SYN报文的ACK标志位为0。</li>
+<li><strong>数据偏移／首部长度</strong>：4bits。由于首部可能含有可选项内容，因此TCP报头的长度是不确定的，报头不包含任何任选字段则长度为20字节，4位首部长度字段所能表示的最大值为1111，转化为10进制为15，15*32/8 = 60，故报头最大长度为60字节。首部长度也叫数据偏移，是因为首部长度实际上指示了数据区在报文段中的起始偏移值。</li>
+<li><strong>保留</strong>：为将来定义新的用途保留，现在一般置0。</li>
+<li><strong>控制位</strong>：URG  ACK  PSH  RST  SYN  FIN，共6个，每一个标志位表示一个控制功能。</li>
+<li><strong>窗口</strong>：滑动窗口大小，用来告知发送端接受端的缓存大小，以此控制发送端发送数据的速率，从而达到流量控制。窗口大小时一个16bit字段，因而窗口大小最大为65535。</li>
+<li><strong>窗口</strong>：滑动窗口大小，用来告知发送端接受端的缓存大小，以此控制发送端发送数据的速率，从而达到流量控制。窗口大小时一个16bit字段，因而窗口大小最大为65535。</li>
+<li><strong>校验和</strong>：奇偶校验，此校验和是对整个的 TCP 报文段，包括 TCP 头部和 TCP 数据，以 16 位字进行计算所得。由发送端计算和存储，并由接收端进行验证。</li>
+<li><strong>紧急指针</strong>：只有当 URG 标志置 1 时紧急指针才有效。紧急指针是一个正的偏移量，和顺序号字段中的值相加表示紧急数据最后一个字节的序号。 TCP 的紧急方式是发送端向另一端发送紧急数据的一种方式。</li>
+<li><strong>选项和填充</strong>：最常见的可选字段是最长报文大小，又称为MSS（Maximum Segment Size），每个连接方通常都在通信的第一个报文段（为建立连接而设置SYN标志为1的那个段）中指明这个选项，它表示本端所能接受的最大报文段的长度。选项长度不一定是32位的整数倍，所以要加填充位，即在这个字段中加入额外的零，以保证TCP头是32的整数倍。</li>
+<li><strong>数据部分</strong>： TCP 报文段中的数据部分是可选的。在一个连接建立和一个连接终止时，双方交换的报文段仅有 TCP 首部。如果一方没有数据要发送，也使用没有任何数据的首部来确认收到的数据。在处理超时的许多情况中，也会发送不带任何数据的报文段。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/15/深入理解JVM/" rel="next" title="深入理解JVM">
+                <i class="fa fa-chevron-left"></i> 深入理解JVM
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mr.Xu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/easonchen3" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java复习"><span class="nav-number">1.</span> <span class="nav-text">-    Java复习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Java基础"><span class="nav-number">1.1.</span> <span class="nav-text">1.Java基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Java的跨平台原理"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 Java的跨平台原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2搭建一个Java开发环境"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2搭建一个Java开发环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Java-int-占几个字节"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 Java int 占几个字节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4面向对象的特征有哪些方面"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.4面向对象的特征有哪些方面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-有了基本的数据类型，为什么还要包装类型"><span class="nav-number">1.1.5.</span> <span class="nav-text">1.5 有了基本的数据类型，为什么还要包装类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6装箱和拆箱"><span class="nav-number">1.1.6.</span> <span class="nav-text">1.6装箱和拆箱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-“-”和equals方法究竟有什么区别"><span class="nav-number">1.1.7.</span> <span class="nav-text">1.7 “==”和equals方法究竟有什么区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-8-String，StringBuilder和StringBuffer-的区别"><span class="nav-number">1.1.8.</span> <span class="nav-text">1.8 String，StringBuilder和StringBuffer 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-9-Java中的集合"><span class="nav-number">1.1.9.</span> <span class="nav-text">1.9 Java中的集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-10-ArrayList-和-LinkedList区别"><span class="nav-number">1.1.10.</span> <span class="nav-text">1.10 ArrayList 和 LinkedList区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-11-HashMap和HashTable的区别"><span class="nav-number">1.1.11.</span> <span class="nav-text">1.11 HashMap和HashTable的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-12-实现一个拷贝文件的工具使用字符流还是字节流"><span class="nav-number">1.1.12.</span> <span class="nav-text">1.12 实现一个拷贝文件的工具使用字符流还是字节流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-13-遍历HashMap"><span class="nav-number">1.1.13.</span> <span class="nav-text">1.13 遍历HashMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-14-HashMap-HashTable-ConcurrentHashMap"><span class="nav-number">1.1.14.</span> <span class="nav-text">1.14 HashMap,HashTable,ConcurrentHashMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-15-静态代理和动态代理"><span class="nav-number">1.1.15.</span> <span class="nav-text">1.15 静态代理和动态代理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-多线程"><span class="nav-number">1.2.</span> <span class="nav-text">2.多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1线程的几种实现方式"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1线程的几种实现方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-线程池的创建方法"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 线程池的创建方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Runnable接口和Callable接口的区别。"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 Runnable接口和Callable接口的区别。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-Java中的sleep-和wait-的区别"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4 Java中的sleep()和wait()的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-介绍下CAS-无锁技术"><span class="nav-number">1.2.5.</span> <span class="nav-text">2.5 介绍下CAS(无锁技术)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-volatile关键字的作用和原理。"><span class="nav-number">1.2.6.</span> <span class="nav-text">2.6 volatile关键字的作用和原理。</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#volatile如何保持内存可见性"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">volatile如何保持内存可见性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#volatile如何防止指令重排"><span class="nav-number">1.2.6.2.</span> <span class="nav-text">volatile如何防止指令重排</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-什么是ThreadLocal。"><span class="nav-number">1.2.7.</span> <span class="nav-text">2.7 什么是ThreadLocal。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-锁"><span class="nav-number">1.2.8.</span> <span class="nav-text">2.8 锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9CountDownLatch"><span class="nav-number">1.2.9.</span> <span class="nav-text">2.9CountDownLatch</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-JVM"><span class="nav-number">1.3.</span> <span class="nav-text">3.JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-JVM组成"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 JVM组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-类加载的过程"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 类加载的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3双亲委派模型"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3双亲委派模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4有哪些类加载器。"><span class="nav-number">1.3.4.</span> <span class="nav-text">3.4有哪些类加载器。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-自己写的java-lang-String能否被加载"><span class="nav-number">1.3.5.</span> <span class="nav-text">3.5 自己写的java.lang.String能否被加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-CMS和G1的比较"><span class="nav-number">1.3.6.</span> <span class="nav-text">3.6 CMS和G1的比较</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-数据库"><span class="nav-number">1.4.</span> <span class="nav-text">4.数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-Mysql索引的数据结构。"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1 Mysql索引的数据结构。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-Mysql索引类型"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2 Mysql索引类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-Sql语句优化"><span class="nav-number">1.4.3.</span> <span class="nav-text">4.3 Sql语句优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-SQL中Group-By的使用"><span class="nav-number">1.4.4.</span> <span class="nav-text">4.4 SQL中Group By的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-内连接和外连接"><span class="nav-number">1.4.5.</span> <span class="nav-text">4.5 内连接和外连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-EXPLAIN-简介"><span class="nav-number">1.4.6.</span> <span class="nav-text">4.6 EXPLAIN 简介</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-其他"><span class="nav-number">1.5.</span> <span class="nav-text">5.其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1生产者消费者问题"><span class="nav-number">1.5.1.</span> <span class="nav-text">5.1生产者消费者问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-排序算法"><span class="nav-number">1.5.2.</span> <span class="nav-text">5.2 排序算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-框架"><span class="nav-number">1.6.</span> <span class="nav-text">6.框架</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-Spring事务的传播机制"><span class="nav-number">1.6.1.</span> <span class="nav-text">6.1 Spring事务的传播机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-BeanFactory-和-ApplicationContext有什么区别"><span class="nav-number">1.6.2.</span> <span class="nav-text">6.2 BeanFactory 和 ApplicationContext有什么区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-nginx反向代理"><span class="nav-number">1.6.3.</span> <span class="nav-text">6.3 nginx反向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-Spring配置bean实例化有哪些方法"><span class="nav-number">1.6.4.</span> <span class="nav-text">6.4 Spring配置bean实例化有哪些方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-5-SpringMVC设计模式"><span class="nav-number">1.6.5.</span> <span class="nav-text">6.5 SpringMVC设计模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-6-spring的理解"><span class="nav-number">1.6.6.</span> <span class="nav-text">6.6 spring的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-7-SSM-执行流程"><span class="nav-number">1.6.7.</span> <span class="nav-text">6.7 SSM 执行流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-8-Mybatis"><span class="nav-number">1.6.8.</span> <span class="nav-text">6.8 Mybatis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-redis"><span class="nav-number">1.7.</span> <span class="nav-text">7.redis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-网络"><span class="nav-number">1.8.</span> <span class="nav-text">8.网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-TCP拥塞控制"><span class="nav-number">1.8.1.</span> <span class="nav-text">8.1 TCP拥塞控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2-TCP报文信息"><span class="nav-number">1.8.2.</span> <span class="nav-text">8.2 TCP报文信息</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Xu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+</body>
+</html>
