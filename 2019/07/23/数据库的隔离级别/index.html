@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据库,隔离级别,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.写在前面的话​    在学习隔离级别之前我们要先了解数据库事务的知识，我们都听说过数据库事务的ACID：  Atomic(原子性)：事务中包含的操作被看作是一个整体的业务单元，这个单元要么成功，要么失败，不会出现部分成功部分失败的情况。  Consistency(一致性)：事务在完成的时候，要保证所有的数据都保持一致状态。 例如：转账前后，金额的总和应该是一致的。  Isolation(隔离性">
+<meta name="keywords" content="数据库,隔离级别">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库的隔离级别">
+<meta property="og:url" content="http://easonchen3.github.io/2019/07/23/数据库的隔离级别/index.html">
+<meta property="og:site_name" content="Geek Jian&#39;s Blog">
+<meta property="og:description" content="1.写在前面的话​    在学习隔离级别之前我们要先了解数据库事务的知识，我们都听说过数据库事务的ACID：  Atomic(原子性)：事务中包含的操作被看作是一个整体的业务单元，这个单元要么成功，要么失败，不会出现部分成功部分失败的情况。  Consistency(一致性)：事务在完成的时候，要保证所有的数据都保持一致状态。 例如：转账前后，金额的总和应该是一致的。  Isolation(隔离性">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-23T05:41:56.378Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据库的隔离级别">
+<meta name="twitter:description" content="1.写在前面的话​    在学习隔离级别之前我们要先了解数据库事务的知识，我们都听说过数据库事务的ACID：  Atomic(原子性)：事务中包含的操作被看作是一个整体的业务单元，这个单元要么成功，要么失败，不会出现部分成功部分失败的情况。  Consistency(一致性)：事务在完成的时候，要保证所有的数据都保持一致状态。 例如：转账前后，金额的总和应该是一致的。  Isolation(隔离性">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://easonchen3.github.io/2019/07/23/数据库的隔离级别/">
+
+
+
+
+
+  <title>数据库的隔离级别 | Geek Jian's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+	
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Geek Jian's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">路虽弥，不行不至；事虽小，不做不成</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://easonchen3.github.io/2019/07/23/数据库的隔离级别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Xu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Geek Jian's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据库的隔离级别</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-23T13:34:41+08:00">
+                2019-07-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1-写在前面的话"><a href="#1-写在前面的话" class="headerlink" title="1.写在前面的话"></a>1.写在前面的话</h3><p>​    在学习隔离级别之前我们要先了解数据库事务的知识，我们都听说过数据库事务的ACID：</p>
+<ul>
+<li><p>Atomic(原子性)：事务中包含的操作被看作是一个整体的业务单元，这个单元要么成功，要么失败，不会出现部分成功部分失败的情况。</p>
+</li>
+<li><p>Consistency(一致性)：事务在完成的时候，要保证所有的数据都保持一致状态。</p>
+<p>例如：转账前后，金额的总和应该是一致的。</p>
+</li>
+<li><p>Isolation(隔离性)：这个也是我们这节讨论的核心内容，当多个线程或应用程序访问同一个数据的时候，这时候数据库中的数据就会被不同的事务中被访问，这样就会产生更新丢失等问题，数据库为了避免这些问题，提出了事务的隔离级别的概念。</p>
+<ul>
+<li>Durability(持久性)：事务结束之后，所有的数据都要固化到一个地方，例如磁盘中，这样即使断电重启修改后的数据也可以被访问到。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-出现的问题"><a href="#2-出现的问题" class="headerlink" title="2.出现的问题"></a>2.出现的问题</h3><p>前面我们说到，多个事务去操作同一数据的时候，会引发丢失更新的场景，一个事务不应该被另一个事务所干扰，每个并发事务要相互隔离，如果没有事务隔离会出现什么情况呢？</p>
+<ul>
+<li><p>脏读</p>
+<p>假设我们有一张这样的表</p>
+<p>| ID   | Name |<br>| —- | —- |<br>| 1    | 牛A  |<br>| 2    | 牛B  |<br>| 3    | 牛C  |</p>
+<p>第一天，事务A访问数据库，他往数据库中插入了一个新来的牛人名字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into T values (4,&quot;牛D&quot;);</span><br></pre></td></tr></table></figure>
+<p>这时候事务B要查询所有牛人的名字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select Name from T;</span><br></pre></td></tr></table></figure>
+<p>这个时候，如果事务之间没有隔离级别，那么事务B中的结果就会出现”牛D”的名字，这个读到的数据就是还没有提交的数据，就是脏数据，这就是“脏读”。</p>
+</li>
+<li><p>不可重复读</p>
+<p>第二天，事务A访问数据库，他要查询ID是1的牛人的名字，执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select Name from T where ID = 1;</span><br></pre></td></tr></table></figure>
+<p>这个时候事务B来了，因为ID是1 的牛人改名字了，所以要更新下，然后提交了事务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update T set Name = &quot;不牛&quot; where ID = 1;</span><br></pre></td></tr></table></figure>
+<p>接着事务A还是想看ID=1的牛人的名字，于是又执行了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select Name from T where ID = 1;</span><br></pre></td></tr></table></figure>
+<p>结果两次读出ID为1的牛人 的名字竟然不一样，这就是不可重复读。</p>
+</li>
+<li><p>幻读</p>
+<p>第三天，事务A访问数据库，他要查询所有的牛人信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from T;</span><br></pre></td></tr></table></figure>
+<p>这个时候事务B来了，向数据库加入一个新的牛人</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into T values(4,&quot;牛D&quot;);</span><br></pre></td></tr></table></figure>
+<p>这时候事务A忘了刚才查询的结果，于是又一次执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from T;</span><br></pre></td></tr></table></figure>
+<p>结果，第一次有三个牛人，第二次有四个牛人，相信这个时候事务A就蒙了，刚才发生了啥？就和发生了幻觉一样，这就是幻读。</p>
+</li>
+</ul>
+<h3 id="3-数据库的四大隔离级别"><a href="#3-数据库的四大隔离级别" class="headerlink" title="3.数据库的四大隔离级别"></a>3.数据库的四大隔离级别</h3><p>​    为了防止出现上述说的脏读，不可重复读和幻读等情况，我们需要根据需求来设置隔离级别</p>
+<p>​    数据库设置了四个隔离级别：</p>
+<ul>
+<li>读未提交（Read Uncommitted）</li>
+<li>读已提交（Read Committed）</li>
+<li>可重复读（Repeated Read）</li>
+<li>串行化（Serializable）</li>
+</ul>
+<h4 id="1-读未提交"><a href="#1-读未提交" class="headerlink" title="1.读未提交"></a>1.读未提交</h4><p>读未提交是最低的隔离级别， 其中的含义是允许一个事务读取另外一个事务没有提交的数据，这个级别是一种危险的隔离级别，在实际的应用中不广，他的优点是并发能力强，适合那些对数据一致性没有要求而追求高并发的场景，因此，在这种隔离级别下，查询是不会加锁的，也由于查询不加锁，可能会产生’’脏读，”不可重复读”，”幻读”。</p>
+<p>如无特殊情况，基本是不会使用这种隔离级别。</p>
+<h4 id="2-读写提交"><a href="#2-读写提交" class="headerlink" title="2.读写提交"></a>2.读写提交</h4><p>读写提交，是指一个事务只能读取另外一个事务已经提交的数据，不能读取未提交的数据，这是各个系统中最常用的一种隔离级别，也是SQL Server和Oracle 的默认隔离级别。这种隔离级别可以有效的避免脏读，但除非在查询中显示的加锁，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from T where ID = 2 lock in share mode;</span><br><span class="line">select * from T where ID = 2 for update;</span><br></pre></td></tr></table></figure>
+<p>不然，普通的查询是不会加锁的，那么是如何保证没有脏读的呢，这就要引入另外一个机制”快照”,数据库使用”快照读”既能保证一致性，又不用加锁，如果数据库中没有快照读，当一个更新事务没有提交，就对更新数据进行查询会因为无法查询而阻塞，这种情况会导致并发能力相当差，如果使用快照读可以完成高并发的查询。</p>
+<p>不过，”读提交”只能避免“脏读“，别能避免”不可重复读”和”幻读”。</p>
+<h4 id="3-可重复读"><a href="#3-可重复读" class="headerlink" title="3.可重复读"></a>3.可重复读</h4><p>可重复读的目的是客服读写提交中出现的不可重复读现象，因为在读写提交的时候，可能会出现值的变化，通过设置可重复读隔离级别就可以达到目的，而它也是MySql的默认隔离级别。</p>
+<p>在这个级别下，普通的查询同样是使用的“快照读”，但是，和“读提交”不同的是，当事务启动时，就不允许进行“修改操作（Update）”了，而“不可重复读”恰恰是因为两次读取之间进行了数据的修改，因此，“可重复读”能够有效的避免“不可重复读”，但却避免不了“幻读”，因为幻读是由于“插入或者删除操作（Insert or Delete）”而产生的。</p>
+<h4 id="4-串行化"><a href="#4-串行化" class="headerlink" title="4.串行化"></a>4.串行化</h4><p>串行化是数据库最高的隔离级别，他会要求所有的SQL都按照顺序执行，这样就可以客服上述隔离级别出现的所有问题，所以他可以完全保证数据的一致性。</p>
+<p>但是这种级别下，执行效率奇差，性能开销也最大，所以基本没人会用。</p>
+<hr>
+<h3 id="4-合理使用隔离级别"><a href="#4-合理使用隔离级别" class="headerlink" title="4.合理使用隔离级别"></a>4.合理使用隔离级别</h3><p>​                                                            隔离级别和可能发生的现象</p>
+<table>
+<thead>
+<tr>
+<th>项目类型</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>未提交读</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>读写提交</td>
+<td>×</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>可重复读</td>
+<td>×</td>
+<td>×</td>
+<td>√</td>
+</tr>
+<tr>
+<td>串行化</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+</tbody>
+</table>
+<p>​    作为互联网开发人员，在开发高并发业务时需要时刻记住隔离级别可能发生的各种问题和相关的现象，这是数据库事务的核心内容之一，也是互联网企业关注的重要内容之一。追求更高的隔离级别，它能更好的保证数据的一致性，但是要付出锁的代价，那就意味着性能会下降，所以我们在选择隔离级别的时候，要考虑的不单单是数据一致性的问题，还要考虑系统性能。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+          
+            <a href="/tags/隔离级别/" rel="tag"># 隔离级别</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/30/生产者消费者模式/" rel="next" title="生产者消费者模式">
+                <i class="fa fa-chevron-left"></i> 生产者消费者模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mr.Xu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/easonchen3" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-写在前面的话"><span class="nav-number">1.</span> <span class="nav-text">1.写在前面的话</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-出现的问题"><span class="nav-number">2.</span> <span class="nav-text">2.出现的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-数据库的四大隔离级别"><span class="nav-number">3.</span> <span class="nav-text">3.数据库的四大隔离级别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-读未提交"><span class="nav-number">3.1.</span> <span class="nav-text">1.读未提交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-读写提交"><span class="nav-number">3.2.</span> <span class="nav-text">2.读写提交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-可重复读"><span class="nav-number">3.3.</span> <span class="nav-text">3.可重复读</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-串行化"><span class="nav-number">3.4.</span> <span class="nav-text">4.串行化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-合理使用隔离级别"><span class="nav-number">4.</span> <span class="nav-text">4.合理使用隔离级别</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Xu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+</body>
+</html>
